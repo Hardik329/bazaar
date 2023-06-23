@@ -1,0 +1,98 @@
+.p-wrapper {
+  padding: 50px;
+  display: flex;
+}
+
+.p-img-container {
+  flex: 1;
+}
+
+.p-image {
+  width: 100%;
+  height: 90vh;
+  object-fit: cover;
+}
+
+.p-info-container {
+  flex: 1;
+  padding: 0px 50px;
+}
+
+.p-title {
+  font-weight: 200;
+}
+
+.p-desc {
+  margin: 20px 0px;
+}
+
+.p-price {
+  font-weight: 100;
+  font-size: 40px;
+}
+
+.p-filter-container {
+  width: 50%;
+  margin: 30px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.p-filter {
+  display: flex;
+  align-items: center;
+}
+
+.p-filter-title {
+  font-size: 20px;
+  font-weight: 200;
+}
+
+.p-filter-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 0px 5px;
+  cursor: pointer;
+}
+
+.p-filter-size {
+  margin-left: 10px;
+  padding: 5px;
+}
+
+.p-add-container {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.p-amount-container {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+}
+
+.p-amount {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid teal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 5px;
+}
+
+.p-button {
+  padding: 15px;
+  border: 2px solid teal;
+  background-color: white;
+  cursor: pointer;
+  font-weight: 500;
+}
+.p-button:hover {
+  background-color: teal;
+  color: white;
+}
