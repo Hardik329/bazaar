@@ -14,7 +14,6 @@ const Slider = () => {
 
   useEffect(() => {
     ref.current.style.transform = `translateX(${-slideIndex * 100}vw)`;
-    console.log(ref.current.style);
   }, [slideIndex]);
 
   // setInterval(() => {
@@ -27,7 +26,6 @@ const Slider = () => {
   // }, 500);
 
   const handleClick = (direction) => {
-    console.log(direction);
     direction === "left"
       ? setSlideIndex((slideIndex) =>
           slideIndex === 0 ? sliderItems.length - 1 : slideIndex - 1
