@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { publicRequest } from "../useFetch";
 import "./Register.css";
 
 const Register = () => {
@@ -8,9 +9,22 @@ const Register = () => {
     setUser((user) => ({ ...user, [e.target.name]: e.target.value }));
   };
 
-  const handleClick =(e)=>{
-    e.preventDefault()
-  }
+  const handleClick = async(e) => {
+    e.preventDefault();
+    
+    
+    try{
+      const res = await publicRequest.post("/register", user);
+      console.log(res.data);
+
+    }
+    catch(err){
+      console.log(err);
+    }
+
+
+
+  };
 
   return (
     <div className="reg-container">
@@ -57,7 +71,9 @@ const Register = () => {
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </div>
-          <button className="reg-button" onClick={e=>handleClick(e)}>CREATE</button>
+          <button className="reg-button" onClick={(e) => handleClick(e)}>
+            REGISTER
+          </button>
         </form>
       </div>
     </div>

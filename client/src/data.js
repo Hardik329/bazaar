@@ -1,5 +1,7 @@
-import image from './img.png'
+import image from './images/img.png'
 
+export const logo = "https://i.ibb.co/FH1x3RH/cartLogo.jpg"
+// "https://ibb.co/Dr67mD2"
 
 export const sliderItems = [
     {
