@@ -72,23 +72,45 @@ const Cart = () => {
       <div className="cart-wrapper">
         <h1 className="cart-title">YOUR BAG</h1>
         <div className="cart-top">
-          <button className="cart-top-button" onClick={() => navigate("/")}>
-            CONTINUE SHOPPING
-          </button>
+          {cart.products.length > 0 && (
+            <button className="cart-top-button" onClick={() => navigate("/")}>
+              CONTINUE SHOPPING
+            </button>
+          )}
           <div className="cart-top-texts">
             <span className="cart-top-text">Shopping Bag({cart.quantity})</span>
             <span className="cart-top-text">Your Wishlist(0)</span>
           </div>
-          <button className="cart-top-button" style={topButtonStyle}>
-            CHECKOUT NOW
-          </button>
+          {cart.products.length > 0 && (
+            <button className="cart-top-button" style={topButtonStyle}>
+              CHECKOUT NOW
+            </button>
+          )}
         </div>
         <div className="cart-bottom">
           <div className="cart-info">
+            {cart.products.length === 0 && (
+              <>
+                <div className="empty-container">
+                  <div className="empty-text">Your bag is empty!</div>
+                  <button
+                    className="cart-button"
+                    style={{ width: "max-content", padding: "12px" }}
+                    onClick={() => navigate("/")}
+                  >
+                    SHOP NOW
+                  </button>
+                </div>
+              </>
+            )}
             {cart.products?.map((product) => (
               <div className="cart-product">
                 <div className="cart-product-detail">
-                  <img className="cart-image" src={product.img} alt={product.title}/>
+                  <img
+                    className="cart-image"
+                    src={product.img}
+                    alt={product.title}
+                  />
                   <div className="cart-details">
                     <span className="cart-product-name">
                       <b>Product:</b> {product.title}
@@ -130,40 +152,42 @@ const Cart = () => {
             ))}
             <hr className="hr" />
           </div>
-          <div className="summary">
-            <h1 className="summary-title">ORDER SUMMARY</h1>
-            <div className="summary-item">
-              <span className="summary-item-text">Subtotal</span>
-              <span className="summary-item-price">$ {cart.total}</span>
+          {cart.products.length > 0 && (
+            <div className="summary">
+              <h1 className="summary-title">ORDER SUMMARY</h1>
+              <div className="summary-item">
+                <span className="summary-item-text">Subtotal</span>
+                <span className="summary-item-price">$ {cart.total}</span>
+              </div>
+              <div className="summary-item">
+                <span className="summary-item-text">Estimated Shipping</span>
+                <span className="summary-item-price">$ 5.90</span>
+              </div>
+              <div className="summary-item">
+                <span className="summary-item-text">Shipping Discount</span>
+                <span className="summary-item-price">$ -5.90</span>
+              </div>
+              <div
+                className="summary-item"
+                style={{ fontSize: "24px", fontWeight: "500" }}
+              >
+                <span className="summary-item-text">Total</span>
+                <span className="summary-item-price">$ {cart.total}</span>
+              </div>
+              <StripeCheckout
+                name="BAZAAR"
+                image={logo}
+                billingAddress
+                shippingAddress
+                description={`Your total is $${cart.total}`}
+                amount={cart.total * 100}
+                token={onToken}
+                stripeKey={KEY}
+              >
+                <button className="cart-button">CHECKOUT NOW</button>
+              </StripeCheckout>
             </div>
-            <div className="summary-item">
-              <span className="summary-item-text">Estimated Shipping</span>
-              <span className="summary-item-price">$ 5.90</span>
-            </div>
-            <div className="summary-item">
-              <span className="summary-item-text">Shipping Discount</span>
-              <span className="summary-item-price">$ -5.90</span>
-            </div>
-            <div
-              className="summary-item"
-              style={{ fontSize: "24px", fontWeight: "500" }}
-            >
-              <span className="summary-item-text">Total</span>
-              <span className="summary-item-price">$ {cart.total}</span>
-            </div>
-            <StripeCheckout
-              name="BAZAAR"
-              image={logo}
-              billingAddress
-              shippingAddress
-              description={`Your total is $${cart.total}`}
-              amount={cart.total * 100}
-              token={onToken}
-              stripeKey={KEY}
-            >
-              <button className="cart-button">CHECKOUT NOW</button>
-            </StripeCheckout>
-          </div>
+          )}
         </div>
       </div>
       <Footer />
