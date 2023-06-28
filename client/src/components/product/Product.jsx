@@ -6,7 +6,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import "./Product.css";
 
 const Product = ({ item }) => {
-  
   return (
     <div className="product-container">
       <div className="circle"></div>
@@ -16,7 +15,7 @@ const Product = ({ item }) => {
           <ShoppingCartOutlinedIcon />
         </div>
         <div className="product-icon">
-          <Link to={`/product/${item._id}`}>
+          <Link to={`/product/find/${item._id}`}>
             <SearchIcon style={{ color: "black" }} />
           </Link>
         </div>
