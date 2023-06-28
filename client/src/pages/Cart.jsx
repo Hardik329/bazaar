@@ -7,7 +7,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import "./Cart.css";
 import { addToCart, removeFromCart } from "../redux/cartSlice";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { userRequest } from "../useFetch";
 import StripeCheckout from "react-stripe-checkout";
 
@@ -30,14 +30,13 @@ const Cart = () => {
 
   const onToken = (token) => {
     setStripeToken(token);
-    console.log(token);
   };
 
   useEffect(() => {
     const makeRequest = async () => {
       try {
         const res = await userRequest.post("/checkout/payment", {
-          token:stripeToken,
+          token: stripeToken,
           tokenId: stripeToken.id,
           amount: 500,
         });
@@ -50,7 +49,7 @@ const Cart = () => {
       } catch {}
     };
     stripeToken && makeRequest();
-  }, [stripeToken, cart.total, navigate]);
+  }, [stripeToken, cart, navigate]);
 
   const handleClick = ([operation, product]) => {
     if (operation === "add") {
@@ -65,7 +64,7 @@ const Cart = () => {
     backgroundColor: "black",
     color: "white",
   };
-  
+
   return (
     <div className="cart-container">
       <Navbar />
@@ -73,7 +72,7 @@ const Cart = () => {
       <div className="cart-wrapper">
         <h1 className="cart-title">YOUR BAG</h1>
         <div className="cart-top">
-          <button className="cart-top-button" onClick={() => navigate('/')}>
+          <button className="cart-top-button" onClick={() => navigate("/")}>
             CONTINUE SHOPPING
           </button>
           <div className="cart-top-texts">
@@ -89,7 +88,7 @@ const Cart = () => {
             {cart.products?.map((product) => (
               <div className="cart-product">
                 <div className="cart-product-detail">
-                  <img className="cart-image" src={product.img} />
+                  <img className="cart-image" src={product.img} alt={product.title}/>
                   <div className="cart-details">
                     <span className="cart-product-name">
                       <b>Product:</b> {product.title}

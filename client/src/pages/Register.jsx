@@ -9,21 +9,15 @@ const Register = () => {
     setUser((user) => ({ ...user, [e.target.name]: e.target.value }));
   };
 
-  const handleClick = async(e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    
-    
-    try{
+
+    try {
       const res = await publicRequest.post("/register", user);
       console.log(res.data);
-
-    }
-    catch(err){
+    } catch (err) {
       console.log(err);
     }
-
-
-
   };
 
   return (

@@ -7,23 +7,22 @@ import { sliderItems } from "../../data";
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
+  const [titleColor, setTitleColor] = useState("black");
 
   const ref = useRef(0);
-  const te = useRef("black");
-  const bg = useRef("white");
 
   useEffect(() => {
     ref.current.style.transform = `translateX(${-slideIndex * 100}vw)`;
   }, [slideIndex]);
 
-  // setInterval(() => {
-  //   console.log("done");
-  //   console.log(te.current.style?.color)
-  //   if (te.current.style?.color===undefined) {}
-  //   else
-  //     te.current.style.color =
-  //       te.current.style.color === "red" ? "black" : "red";
-  // }, 500);
+  useEffect(() => {
+    setInterval(() => {
+      setTitleColor((color) => {
+        if (color === "black") return "red";
+        else return "black";
+      });
+    }, 500);
+  }, []);
 
   const handleClick = (direction) => {
     direction === "left"
@@ -43,10 +42,10 @@ const Slider = () => {
         {sliderItems.map((slide) => (
           <div className="slide" style={{ backgroundColor: slide.bg }}>
             <div className="imgContainer">
-              <img src={slide.img} />
+              <img src={slide.img} alt="" />
             </div>
             <div className="infoContainer">
-              <h1 className="slider-title" ref={te}>
+              <h1 className="slider-title" style={{ color: titleColor }}>
                 {slide.title}
               </h1>
               <p className="slider-desc">{slide.desc}</p>
