@@ -19,7 +19,6 @@ const Product = () => {
 
   const params = useParams();
   const id = params.id;
-  console.log(id);
 
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -31,8 +30,11 @@ const Product = () => {
     const getProduct = async () => {
       try {
         const res = await publicRequest.get("/products/find/" + id);
+        console.log(res);
         setProduct(res.data);
-      } catch {}
+      } catch (err) {
+        console.log(err);
+      }
     };
     getProduct();
   }, [id]);
@@ -54,16 +56,16 @@ const Product = () => {
       <Announcement />
       <div className="p-wrapper">
         <div className="p-img-container">
-          <img className="p-image" src={product.img} />
+          <img className="p-image" src={product?.img} />
         </div>
         <div className="p-info-container">
-          <h1 className="p-title">{product.title}</h1>
-          <p className="p-desc">{product.desc}</p>
-          <span className="p-price">$ {product.price}</span>
+          <h1 className="p-title">{product?.title}</h1>
+          <p className="p-desc">{product?.desc}</p>
+          <span className="p-price">$ {product?.price}</span>
           <div className="p-filter-container">
             <div className="p-filter">
               <span className="p-filter-title">Color</span>
-              {product.color?.map((c) => (
+              {product?.color?.map((c) => (
                 <div
                   className="p-filter-color"
                   style={{ backgroundColor: c }}
@@ -77,7 +79,7 @@ const Product = () => {
                 className="p-filter-size"
                 onChange={(e) => setSize(e.target.value)}
               >
-                {product.size?.map((s) => (
+                {product?.size?.map((s) => (
                   <option key={s}>{s}</option>
                 ))}
               </select>
