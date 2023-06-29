@@ -21,7 +21,7 @@ const Product = ({ item }) => {
           <ShoppingCartOutlinedIcon />
         </div>
         <div className="product-icon">
-          <Link to={`/product/find/${item._id}`}>
+          <Link to={`/products/find/${item._id}`}>
             <SearchIcon style={{ color: "black" }} />
           </Link>
         </div>

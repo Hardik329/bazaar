@@ -20,11 +20,7 @@ const Product = () => {
   const params = useParams();
   const id = params.id;
 
-  const [product, setProduct] = useState({
-    color: ["blue", "red", "green"],
-    size: ["5", 6],
-    price: 58,
-  });
+  const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
