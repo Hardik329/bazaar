@@ -19,6 +19,7 @@ const Product = () => {
 
   const params = useParams();
   const id = params.id;
+  console.log(id);
 
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
