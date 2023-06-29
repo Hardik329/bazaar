@@ -2,15 +2,21 @@ import { Link } from "react-router-dom";
 
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SearchIcon from "@mui/icons-material/Search";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./Product.css";
 import { useState } from "react";
 
 import Heart from "react-animated-heart";
+import { useDispatch } from "react-redux";
+import { addToWishlist } from "../../redux/wishlistSlice";
 
 const Product = ({ item }) => {
   const [isFav, setIsFav] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    setIsFav((isFav) => !isFav);
+    dispatch(addToWishlist(item));
+  };
 
   return (
     <div className="product-container">
@@ -21,19 +27,15 @@ const Product = ({ item }) => {
           <ShoppingCartOutlinedIcon />
         </div>
         <div className="product-icon">
-          <Link to={`/products/find/${item._id}`}>
+          <Link to={`/product/${item._id}`}>
             <SearchIcon style={{ color: "black" }} />
           </Link>
         </div>
         <div className="product-icon">
           <div className="heart-icon">
-            <Heart
-              isClick={isFav}
-              onClick={() => setIsFav((isFav) => !isFav)}
-              className='heart'
-            />
-        </div>
+            <Heart isClick={isFav} onClick={handleClick} className="heart" />
           </div>
+        </div>
       </div>
     </div>
   );
