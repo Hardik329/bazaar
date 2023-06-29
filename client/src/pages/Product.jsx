@@ -30,7 +30,6 @@ const Product = () => {
     const getProduct = async () => {
       try {
         const res = await publicRequest.get("/products/find/" + id);
-        console.log(res);
         setProduct(res.data);
       } catch (err) {
         console.log(err);

@@ -14,7 +14,6 @@ const Register = () => {
 
     try {
       const res = await publicRequest.post("/register", user);
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
