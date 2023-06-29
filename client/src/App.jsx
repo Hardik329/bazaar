@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import { Routes, BrowserRouter, Route, Navigate } from "react-router-dom";
 import "./responsive.css";
 import Success from "./pages/Success";
+import Wishlist from "./pages/Wishlist";
 
 function App() {
   const user = false;
@@ -28,6 +29,7 @@ function App() {
           <Route path="/product/:id" element={<Product />} />
           <Route path="/products" element={<ProductList />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/success" element={<Success />} />
         </Routes>
       </BrowserRouter>
