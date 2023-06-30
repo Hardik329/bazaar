@@ -1,30 +1,25 @@
 import { useEffect, useState } from "react";
 import { popularProducts } from "../../data";
 import Product from "../product/Product";
-import './Products.css'
-import { publicRequest } from "../../useFetch";
+import "./Products.css";
+import useFetch, { publicRequest } from "../../useFetch";
 
+import {TailSpin} from 'react-loader-spinner'
 
 const Products = ({ category, filters, sort }) => {
-  
   const [products, setProducts] = useState([]);
 
+  const { data, loading, error } = useFetch(
+    category ? `/products?category=${category}` : "/products"
+  );
+
+  useEffect(()=>{
+    setProducts(data)
+
+  },[category,loading])
 
   const [filteredProducts, setFilteredProducts] = useState([]);
-  
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const res = await publicRequest.get(
-          category
-            ? `/products?category=${category}`
-            : "/products"
-        );
-        setProducts(res.data);
-      } catch (err) {}
-    };
-    getProducts();
-  }, [category]);
+
 
   useEffect(() => {
     category &&
@@ -55,12 +50,33 @@ const Products = ({ category, filters, sort }) => {
 
   return (
     <div className="products-container">
-      {category
-        ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
-        : products
-            .slice(0, 8)
-            .map((item) => <Product item={item} key={item.id} />)}
-            {popularProducts.map((item)=> <Product item={item} key={item.id} />)}
+      {loading ? (
+        <div className="loading-container">
+
+        <TailSpin
+        height="150"
+        width="150"
+        color="#4fa94d"
+        ariaLabel="tail-spin-loading"
+        radius="1"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+        />
+        </div>
+      ) : (
+        <>
+          {category
+            ? filteredProducts.map((item) => (
+                <Product item={item} key={item.id} />
+              ))
+            : products?.slice(0,8)
+                .map((item) => <Product item={item} key={item.id} />)}
+          {popularProducts.map((item) => (
+            <Product item={item} key={item.id} />
+          ))}
+        </>
+      )}
     </div>
   );
 };
