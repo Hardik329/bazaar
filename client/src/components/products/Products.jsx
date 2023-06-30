@@ -4,22 +4,29 @@ import Product from "../product/Product";
 import "./Products.css";
 import useFetch, { publicRequest } from "../../useFetch";
 
-import {TailSpin} from 'react-loader-spinner'
+import { TailSpin } from "react-loader-spinner";
 
 const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const { data, loading, error } = useFetch(
-    category ? `/products?category=${category}` : "/products"
-  );
-
-  useEffect(()=>{
-    setProducts(data)
-
-  },[category,loading])
+  useEffect(() => {
+    const getProducts = async () => {
+      setLoading(true);
+      try {
+        const res = await publicRequest.get(
+          category ? `/products?category=${category}` : "/products"
+        );
+        setProducts(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+      setLoading(false);
+    };
+    getProducts()
+  }, [category]);
 
   const [filteredProducts, setFilteredProducts] = useState([]);
-
 
   useEffect(() => {
     category &&
@@ -52,17 +59,16 @@ const Products = ({ category, filters, sort }) => {
     <div className="products-container">
       {loading ? (
         <div className="loading-container">
-
-        <TailSpin
-        height="150"
-        width="150"
-        color="#4fa94d"
-        ariaLabel="tail-spin-loading"
-        radius="1"
-        wrapperStyle={{}}
-        wrapperClass=""
-        visible={true}
-        />
+          <TailSpin
+            height="150"
+            width="150"
+            color="#4fa94d"
+            ariaLabel="tail-spin-loading"
+            radius="1"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
         </div>
       ) : (
         <>
@@ -70,7 +76,8 @@ const Products = ({ category, filters, sort }) => {
             ? filteredProducts.map((item) => (
                 <Product item={item} key={item.id} />
               ))
-            : products?.slice(0,8)
+            : products
+                ?.slice(0, 8)
                 .map((item) => <Product item={item} key={item.id} />)}
           {popularProducts.map((item) => (
             <Product item={item} key={item.id} />

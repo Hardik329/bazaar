@@ -19,28 +19,3 @@ export const userRequest = axios.create({
   headers: { token: `Bearer ${TOKEN}` },
 });
 
-
-
-const useFetch = (url) => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const res = await publicRequest.get(url);
-        setData(res.data);
-      } catch (err) {
-        setError(err);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  return { data, loading, error};
-};
-
-export default useFetch;
