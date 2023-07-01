@@ -14,7 +14,7 @@ import stripeRoute from "./routes/stripe.js";
 const app = express();
 
 const port = process.env.PORT || 5000;
-const indexFile = path.resolve(path.resolve() + "/../client/public/index.html");
+// const indexFile = path.resolve(path.resolve() + "/../client/public/index.html");
 
 app.listen(port, () => {
   console.log(`Server is runnning at port ${port}`);
@@ -32,9 +32,9 @@ app.use("/api/cart", cartRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/checkout", stripeRoute);
 
-app.get("/*", (req, res) => {
-  res.sendFile(indexFile);
-});
+// app.get("/*", (req, res) => {
+//   res.sendFile(indexFile);
+// });
 
 mongoose
   .connect(process.env.MONGO_URL)

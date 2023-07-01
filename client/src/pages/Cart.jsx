@@ -78,8 +78,8 @@ const Cart = () => {
             </button>
           )}
           <div className="cart-top-texts">
-            <span className="cart-top-text">Shopping Bag({cart.quantity})</span>
-            <span className="cart-top-text">Your Wishlist(0)</span>
+            <span className="cart-top-text" onClick={()=>navigate('/cart')} >Shopping Bag({cart.quantity})</span>
+            <span className="cart-top-text" onClick={()=>navigate('/wishlist')}>Your Wishlist(0)</span>
           </div>
           {cart.products.length > 0 && (
             <button className="cart-top-button" style={topButtonStyle}>

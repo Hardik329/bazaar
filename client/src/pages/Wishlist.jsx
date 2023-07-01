@@ -47,8 +47,8 @@ const Wishlist = () => {
             </button>
           )}
           <div className="wishlist-top-texts">
-            <span className="wishlist-top-text">Shopping Bag({wishlist.quantity})</span>
-            <span className="wishlist-top-text">Your Wishlist(0)</span>
+            <span className="wishlist-top-text" onClick={()=>navigate('/cart')}>Shopping Bag({wishlist.quantity})</span>
+            <span className="wishlist-top-text" onClick={()=>navigate('/wishlist')}>Your Wishlist(0)</span>
           </div>
           {wishlist.products.length > 0 && (
             <button className="wishlist-top-button" style={topButtonStyle}>
