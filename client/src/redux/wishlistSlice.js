@@ -15,8 +15,11 @@ const wishlistSlice = createSlice({
 
     removeFromWishlist: (state, action) => {
       const newProduct = action.payload;
-      const index = state.products.indexOf(newProduct);
-      if (index != -1) state.products.splice(index, 1);
+      console.log(newProduct._id)
+      console.log(state.products)
+      // state.products.forEach(product=>console.log(product))
+      state.products =state.products.filter(product=> product._id !== newProduct._id)
+      // state.products.forEach(product=>console.log(product))
     },
   },
 });

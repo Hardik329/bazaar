@@ -16,6 +16,7 @@ import { logo } from "../data";
 const Cart = () => {
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
+  const wishlist = useSelector((state) => state.wishlist);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -78,8 +79,15 @@ const Cart = () => {
             </button>
           )}
           <div className="cart-top-texts">
-            <span className="cart-top-text" onClick={()=>navigate('/cart')} >Shopping Bag({cart.quantity})</span>
-            <span className="cart-top-text" onClick={()=>navigate('/wishlist')}>Your Wishlist(0)</span>
+            <span className="cart-top-text" onClick={() => navigate("/cart")}>
+              Shopping Bag({cart.quantity})
+            </span>
+            <span
+              className="cart-top-text"
+              onClick={() => navigate("/wishlist")}
+            >
+              Your Wishlist({wishlist.products.length})
+            </span>
           </div>
           {cart.products.length > 0 && (
             <button className="cart-top-button" style={topButtonStyle}>
@@ -105,7 +113,11 @@ const Cart = () => {
             )}
             {cart.products?.map((product) => (
               <div className="cart-product">
-                <div className="cart-product-detail">
+                <div
+                  className="cart-product-detail"
+                  onClick={() => navigate("/product/" + product._id)}
+                  style={{ cursor: "pointer" }}
+                >
                   <img
                     className="cart-image"
                     src={product.img}
@@ -115,9 +127,9 @@ const Cart = () => {
                     <span className="cart-product-name">
                       <b>Product:</b> {product.title}
                     </span>
-                    <span className="cart-product-id">
+                    {/* <span className="cart-product-id">
                       <b>ID:</b> {product._id}
-                    </span>
+                    </span> */}
                     <div
                       className="cart-product-color"
                       style={{ backgroundColor: product.color }}

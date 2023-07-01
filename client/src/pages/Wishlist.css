@@ -7,115 +7,116 @@
   text-align: center;
 }
 
-
-.wishlist-top{
-    display: flex;
+.wishlist-top {
+  display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px;
 }
 
-.wishlist-top-button{
-    padding: 10px;
+.wishlist-top-button {
+  padding: 10px;
   font-weight: 600;
   cursor: pointer;
 }
 
-.wishlist-top-text{
-    text-decoration: underline;
+.wishlist-top-text {
+  text-decoration: underline;
   cursor: pointer;
   margin: 0px 10px;
-
 }
 
-.wishlist-bottom{
-    display: flex;
+.wishlist-bottom {
+  display: flex;
   justify-content: space-between;
 }
 
-.wishlist-info{
+.wishlist-info {
   flex: 3;
-
 }
-.wishlist-product{
-    display: flex;
+.wishlist-product {
+  display: flex;
   justify-content: space-between;
 }
 
-.wishlist-product-detail{
-    flex: 2;
+.wishlist-product-detail {
+  flex: 2;
   display: flex;
 }
 
-.wishlist-image{
+.wishlist-image {
   width: 200px;
-
 }
 
-.wishlist-details{
-    padding: 20px;
+.wishlist-details {
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
 
-.wishlist-product-color{
-    width: 20px;
+.wishlist-product-color {
+  width: 20px;
   height: 20px;
   border-radius: 50%;
 }
 
-.wishlist-price-detail{
-    flex: 1;
+.wishlist-price-detail {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.wishlist-product-amount-container{
-    display: flex;
+.wishlist-product-amount-container {
+  display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.wishlist-product-amount{
-    font-size: 24px;
+.wishlist-product-name{
+  font-size: 21px;
+  font-weight: 500;
+}
+
+.wishlist-product-amount {
+  font-size: 24px;
   margin: 5px;
 }
 
-.wishlist-product-price{
-    font-size: 30px;
+.wishlist-product-price {
+  font-size: 30px;
   font-weight: 200;
 }
 
-.hr{
-    background-color: #eee;
+.hr {
+  background-color: #eee;
   border: none;
+  margin-top: 15px;
   height: 1px;
 }
 
-.summary{
-    flex: 1;
+.summary {
+  flex: 1;
   border: 0.5px solid lightgray;
   border-radius: 10px;
   padding: 20px;
   height: 50vh;
 }
 
-.summary-title{
+.summary-title {
   font-weight: 200;
-
 }
 
-.summary-item{
-    margin: 30px 0px;
+.summary-item {
+  margin: 30px 0px;
   display: flex;
   justify-content: space-between;
 }
 
-.wishlist-button{
-    width: 100%;
+.wishlist-button {
+  width: 100%;
   padding: 10px;
   background-color: black;
   color: white;
@@ -123,7 +124,7 @@
   cursor: pointer;
 }
 
-.empty-container{
+.empty-container {
   display: flex;
   flex-direction: column;
   align-items: center;
