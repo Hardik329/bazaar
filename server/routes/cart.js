@@ -12,7 +12,7 @@ const router = express.Router()
 
 //CREATE
 
-router.post("/", verifyToken, async (req, res) => {
+router.post("/", async (req, res) => {
   const newCart = new Cart(req.body);
 
   try {
@@ -26,23 +26,23 @@ router.post("/", verifyToken, async (req, res) => {
 //UPDATE
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const updatedCart = await Cart.findByIdAndUpdate(
-      req.params.id,
+    const updatedCart = await Cart.findOneAndUpdate(
+      {userId:req.params.userId},
       {
         $set: req.body,
       },
       { new: true }
     );
-    res.status(200).json(updatedCart);
+    return res.status(200).json(updatedCart);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
 //DELETE
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    await Cart.findByIdAndDelete(req.params.id);
+    await Cart.findOneAndDelete({userId:req.params.id});
     res.status(200).json("Cart has been deleted...");
   } catch (err) {
     res.status(500).json(err);
@@ -50,9 +50,9 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 //GET USER CART
-router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/find/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const cart = await Cart.findOne({ userId: req.params.userId });
+    const cart = await Cart.findOne({ userId: req.params.id });
     res.status(200).json(cart);
   } catch (err) {
     res.status(500).json(err);

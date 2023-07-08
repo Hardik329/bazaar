@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Announcement from "../components/announcement/Announcement";
 import Categories from "../components/categories/Categories";
 import Footer from "../components/footer/Footer";
@@ -6,14 +7,23 @@ import Navbar from "../components/navbar/Navbar";
 import Newsletter from "../components/newsletter/Newsletter";
 import Products from "../components/products/Products";
 import Slider from "../components/slider/Slider";
+// import { fetchCart } from "../redux/cartSlice";
 // import { userRequest } from "../useFetch.js";
 
 // import axios from 'axios'
 // import {products} from '../large_data.js'
 
 const Home = () => {
+
+  const dispatch = useDispatch()
+  const user = useSelector(state=>state.user)
+  const currentUser = user?.currentUser
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+
+    // currentUser && dispatch(fetchCart(currentUser._id))
+
     // const addData = async () => {
     //   for(let i=3000;i<=3000;i+=40){
     //     const product = products[i];

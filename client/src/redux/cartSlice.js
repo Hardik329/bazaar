@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { publicRequest, userRequest } from "../useFetch";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -28,6 +29,7 @@ const cartSlice = createSlice({
         state.products.push(action.payload);
       }
       state.total += action.payload.price * action.payload.quantity;
+      return;
     },
 
     removeFromCart: (state, action) => {
@@ -49,9 +51,76 @@ const cartSlice = createSlice({
           return;
         }
       });
+      return;
+    },
+
+    fetchCart: async (state, action) => {
+      console.log("called fetchCart");
+      try {
+        const res = await userRequest.get("/cart/find/" + action.payload);
+        if (!res.data) {
+          console.log(res.data);
+          state.products.length = 0;
+          state.quantity = 0;
+          state.total = 0;
+          return;
+        } else {
+          const cart = res.data;
+          console.log("cart: ", cart);
+          var products;
+          cart.map((product) => {
+            publicRequest
+              .get("/products/find/" + product._id)
+              .then((res) => res.data)
+              .then((data) =>
+                products.push({
+                  ...data,
+                  size: product.size,
+                  color: product.color,
+                  quantity: product.quantity,
+                })
+              );
+          });
+          state = {
+            products: products,
+            quantity: cart.quantity,
+            total: cart.total,
+          };
+        }
+      } catch (error) {
+        console.log(error);
+        return;
+      }
+
+      return;
+    },
+
+    updateCart: async (state, action) => {
+      console.log("called updateCart");
+
+      try {
+        console.log({
+          ...action.payload.cart,
+          userId: action.payload.userId,
+        });
+        const res = await userRequest.put("/cart/" + action.payload.userId, {
+          ...action.payload.cart,
+          userId: action.payload.userId,
+        });
+        console.log(res);
+        console.log("later cart: ", action.payload.cart);
+        state = action.payload.cart;
+        return;
+      } catch (error) {
+        console.log(error);
+        console.log("later cart: ", action.payload.cart);
+        state = action.payload.cart;
+        return;
+      }
     },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, fetchCart, updateCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;

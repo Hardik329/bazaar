@@ -9,9 +9,22 @@ import { Routes, BrowserRouter, Route, Navigate } from "react-router-dom";
 import "./responsive.css";
 import Success from "./pages/Success";
 import Wishlist from "./pages/Wishlist";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { updateCart } from "./redux/cartSlice"; 
 
 function App() {
-  const user = false;
+  const user = useSelector(state=>state.user);
+  const currentUser = user?.currentUser
+  const cart = useSelector(state=>state.cart)
+  const dispatch = useDispatch()
+
+  // useEffect(()=>{
+  //   currentUser && dispatch(updateCart({userId:currentUser._id,cart:cart}))  
+  // },[])
+
+
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -20,11 +33,11 @@ function App() {
           <Route path="/products/:category" element={<ProductList />} />
           <Route
             path="/login"
-            element={user ? <Navigate to="/" /> : <Login />}
+            element={currentUser ? <Navigate to="/" /> : <Login />}
           />
           <Route
             path="/register"
-            element={user ? <Navigate to="/" /> : <Register />}
+            element={currentUser ? <Navigate to="/" /> : <Register />}
           />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/products" element={<ProductList />} />

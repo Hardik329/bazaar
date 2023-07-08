@@ -1,9 +1,12 @@
+import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { publicRequest } from "../useFetch";
 import "./Register.css";
 
 const Register = () => {
   const [user, setUser] = useState({});
+  const navigate=useNavigate()
 
   const handleChange = (e) => {
     setUser((user) => ({ ...user, [e.target.name]: e.target.value }));
@@ -13,7 +16,16 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const res = await publicRequest.post("/register", user);
+      const res = await publicRequest.post("/auth/register", user);
+      if (res.data) {
+        const cart = await publicRequest.post("/cart", {
+          userId: res.data._id,
+          products: [],
+          quantity: 0,
+          total: 0,
+        });
+      }
+      navigate(-1)
     } catch (err) {
       console.log(err);
     }
