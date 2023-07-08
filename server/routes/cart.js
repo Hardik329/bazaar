@@ -27,12 +27,13 @@ router.post("/", async (req, res) => {
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const updatedCart = await Cart.findOneAndUpdate(
-      {userId:req.params.userId},
+      {userId:req.params.id},
       {
         $set: req.body,
       },
       { new: true }
     );
+    console.log(updatedCart);
     return res.status(200).json(updatedCart);
   } catch (err) {
     return res.status(500).json(err);

@@ -3,7 +3,7 @@
 }
 
 .nav-wrapper {
-  padding: 10px 20px;
+  padding: 10px 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,10 +25,6 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin-right: 85px;
-  
-  /* padding-right: 85px; */
-  /* border: solid 2px black; */
 }
 
 .nav-lang {

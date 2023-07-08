@@ -15,14 +15,18 @@ const wishlistSlice = createSlice({
 
     removeFromWishlist: (state, action) => {
       const newProduct = action.payload;
-      console.log(newProduct._id)
-      console.log(state.products)
-      // state.products.forEach(product=>console.log(product))
-      state.products =state.products.filter(product=> product._id !== newProduct._id)
-      // state.products.forEach(product=>console.log(product))
+      state.products = state.products.filter(
+        (product) => product._id !== newProduct._id
+      );
+    },
+
+    setWishlist: (state, action) => {
+      if (action.payload) state.products = action.payload;
+      else state.products = [];
     },
   },
 });
 
-export const { addToWishlist, removeFromWishlist } = wishlistSlice.actions;
+export const { addToWishlist, removeFromWishlist, setWishlist } =
+  wishlistSlice.actions;
 export default wishlistSlice.reducer;

@@ -17,7 +17,7 @@ const Success = () => {
     const createOrder = async () => {
       try {
         const res = await userRequest.post("/orders", {
-          userId: currentUser._id,
+          user: currentUser,
           products: cart.products.map((item) => ({
             productId: item._id,
             quantity: item._quantity,

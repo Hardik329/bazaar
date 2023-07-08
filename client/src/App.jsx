@@ -11,18 +11,32 @@ import Success from "./pages/Success";
 import Wishlist from "./pages/Wishlist";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { updateCart } from "./redux/cartSlice"; 
+import { updateCart } from "./utils/sync";
 
 function App() {
   const user = useSelector(state=>state.user);
   const currentUser = user?.currentUser
   const cart = useSelector(state=>state.cart)
-  const dispatch = useDispatch()
 
-  // useEffect(()=>{
-  //   currentUser && dispatch(updateCart({userId:currentUser._id,cart:cart}))  
-  // },[])
-
+  useEffect(() => {
+    console.log("Cart: ", cart);
+    currentUser &&
+      updateCart({
+        user: currentUser,
+        cart: {
+          products: cart.products.map((product) => {
+            return {
+              _id: product._id,
+              quantity: product.quantity,
+              color: product.color,
+              size: product.size,
+            };
+          }),
+          quantity: cart.quantity,
+          total: cart.total,
+        },
+      });
+  }, [cart]);
 
 
   return (

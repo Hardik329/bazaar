@@ -5,18 +5,15 @@ import Footer from "../components/footer/Footer";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import "./Cart.css";
-import {
-  addToCart,
-  fetchCart,
-  removeFromCart,
-  updateCart,
-} from "../redux/cartSlice";
+import { addToCart, removeFromCart, setCart } from "../redux/cartSlice";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userRequest } from "../useFetch";
+import { publicRequest } from "../useFetch";
+import { makeRequest } from "../useFetch";
 import StripeCheckout from "react-stripe-checkout";
 
 import { logo } from "../data";
+import { updateCart } from "../utils/sync";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -26,31 +23,57 @@ const Cart = () => {
   const currentUser = user?.currentUser;
   const dispatch = useDispatch();
 
+  const { userRequest } = makeRequest(currentUser?.accessToken);
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    const fetchCart = async () => {
+      console.log("called fetchCart");
+      try {
+        const res = await userRequest.get("/cart/find/" + currentUser._id);
+        if (!res.data) {
+          console.log("Empty state");
+
+          const state = {
+            products: [],
+            quantity: 0,
+            total: 0,
+          };
+
+          dispatch(setCart(state));
+        } else {
+          const cart = res.data;
+          console.log("cart: ", cart);
+
+          const promises = cart.products.map((product) =>
+            publicRequest.get("/products/find/" + product._id)
+          );
+
+          const arr = await Promise.all(promises);
+          const products = arr.map((res,i) => {
+            const { _id,img, desc, title, categories, price} = res.data;
+            return { _id,img, desc, title, categories, price,quantity:cart.products[i].quantity};
+          });
+
+          const state = {
+            products: products,
+            quantity: cart.quantity,
+            total: cart.total,
+          };
+
+          dispatch(setCart(state));
+
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    currentUser && fetchCart();
   }, []);
 
-  // useEffect(() => {
-  //   console.log("Cart: ", cart);
-  //   currentUser &&
-  //     dispatch(
-  //       updateCart({
-  //         userId: currentUser._id,
-  //         cart: {
-  //           products: cart.products.map((product) => {
-  //             return {
-  //               _id: product._id,
-  //               quantity: product.quantity,
-  //               color: product.color,
-  //               size: product.size,
-  //             };
-  //           }),
-  //           quantity: cart.quantity,
-  //           total: cart.total,
-  //         },
-  //       })
-  //     );
-  // }, [cart]);
+
+  
 
   const KEY =
     "pk_test_51MCzfVSCUl7TzaqZOwgokhyicYqLFEoxg7eKJ2o5qHOCdqtFpxXbbhXqYyd4T0wtDiVUVh45HRih3q9SBNtep79i001l3cVmDW";
