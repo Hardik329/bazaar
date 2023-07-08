@@ -30,27 +30,27 @@ const Cart = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
-  useEffect(() => {
-    console.log("Cart: ", cart);
-    currentUser &&
-      dispatch(
-        updateCart({
-          userId: currentUser._id,
-          cart: {
-            products: cart.products.map((product) => {
-              return {
-                _id: product._id,
-                quantity: product.quantity,
-                color: product.color,
-                size: product.size,
-              };
-            }),
-            quantity: cart.quantity,
-            total: cart.total,
-          },
-        })
-      );
-  }, [cart]);
+  // useEffect(() => {
+  //   console.log("Cart: ", cart);
+  //   currentUser &&
+  //     dispatch(
+  //       updateCart({
+  //         userId: currentUser._id,
+  //         cart: {
+  //           products: cart.products.map((product) => {
+  //             return {
+  //               _id: product._id,
+  //               quantity: product.quantity,
+  //               color: product.color,
+  //               size: product.size,
+  //             };
+  //           }),
+  //           quantity: cart.quantity,
+  //           total: cart.total,
+  //         },
+  //       })
+  //     );
+  // }, [cart]);
 
   const KEY =
     "pk_test_51MCzfVSCUl7TzaqZOwgokhyicYqLFEoxg7eKJ2o5qHOCdqtFpxXbbhXqYyd4T0wtDiVUVh45HRih3q9SBNtep79i001l3cVmDW";

@@ -6,6 +6,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/userSlice";
+import PersonIcon from "@mui/icons-material/Person";
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
@@ -30,7 +31,9 @@ const Navbar = () => {
         <div className="nav-right">
           {currentUser ? (
             <div className="logout-container">
-              <div className="hello-text"> {`Hello ${currentUser.name}`}</div>
+              <div className="hello-text">
+                <PersonIcon />
+              </div>
               <div className="logout-menu">
                 <div className="logout-text" onClick={() => dispatch(logout())}>
                   LOGOUT

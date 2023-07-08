@@ -25,6 +25,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  margin-right: 85px;
+  
+  /* padding-right: 85px; */
+  /* border: solid 2px black; */
 }
 
 .nav-lang {
@@ -59,7 +63,8 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  min-width: 160px;
+  /* min-width: 160px; */
+
 }
 
 .logout-menu {
@@ -72,9 +77,18 @@
   padding-bottom: 15px;
   background-color: teal;
   color: white;
+  /* right:5px; */
+  left:-20px;
   position: absolute;
 }
 
 .logout-container:hover .logout-menu {
   display: block;
+}
+
+.hello-text{
+  display: flex;
+  align-items: center;
+  gap:5px;
+  font-weight: 600;
 }
