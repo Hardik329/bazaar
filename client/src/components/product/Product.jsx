@@ -9,6 +9,10 @@ import Heart from "react-animated-heart";
 import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist, removeFromWishlist } from "../../redux/wishlistSlice";
 
+import Bounce from "react-reveal/Bounce";
+import Zoom from "react-reveal/Zoom";
+import Slide from 'react-reveal/Slide';
+
 const Product = ({ item }) => {
   var isFav = false;
   const dispatch = useDispatch();
@@ -25,11 +29,25 @@ const Product = ({ item }) => {
   };
 
   return (
-    <div>
-      <div className="product-container">
-        <div className="circle"></div>
-        <img src={item.img} alt="" className="product-img" />
-        <div className="product-info">
+    // <Zoom>
+    <Slide bottom>
+
+      <Link
+        to={`/product/${item._id}`}
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <div className="product-container">
+          <div className="product-icon">
+            <div className="heart-icon">
+              <Heart isClick={isFav} onClick={handleClick} className="heart" />
+            </div>
+          </div>
+          <div className="product-top">
+            <div className="circle"></div>
+            <div className="product-image">
+              <img src={item.img} alt="" className="product-img" />
+
+              {/* <div className="product-info">
           <div className="product-icon">
             <ShoppingCartOutlinedIcon />
           </div>
@@ -38,14 +56,23 @@ const Product = ({ item }) => {
               <SearchIcon style={{ color: "black" }} />
             </Link>
           </div>
-          <div className="product-icon">
-            <div className="heart-icon">
-              <Heart isClick={isFav} onClick={handleClick} className="heart" />
+        </div> */}
+            </div>
+          </div>
+          <div className="product-info">
+            <div className="product-left">
+              <div className="product-title">{item.title}</div>
+              <div className="product-desc">{item.desc}</div>
+            </div>
+
+            <div className="product-right">
+              <div className="product-price">{item.price}</div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </Link>
+    </Slide>
+
   );
 };
 

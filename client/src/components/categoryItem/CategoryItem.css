@@ -3,20 +3,25 @@
   margin: 3px;
   height: 70vh;
   position: relative;
-  transition: all 0.5s;
+  transition: all 1s;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.catItem-container:hover{
+
+.catItem-container:hover .catItem-image{
+  opacity: 0.6;
+}
+
+.catItem-container:hover {
   background-color: black;
-  .catItem-button{
-    opacity: 1;
-  }
-  .catItem-title{
-    font-size: 35px;
-  }
-  .catItem-image{
-    opacity: 0.2;
-  }
+  
+}
+.catItem-container:hover .catItem-button{
+  opacity: 1;
+}
+.catItem-container:hover .catItem-title{
+  font-size: 35px;
 }
 
 .catItem-image{

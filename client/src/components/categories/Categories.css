@@ -1,5 +1,12 @@
-.categories-container{
-    display: flex;
-  padding: 20px;
+.categories-container {
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.categories-wrapper {
+  display: flex;
   justify-content: space-between;
+  gap: 5px;
 }

@@ -3,8 +3,11 @@ import { popularProducts } from "../../data";
 import Product from "../product/Product";
 import "./Products.css";
 import { publicRequest } from "../../useFetch";
+import Bounce from "react-reveal/Bounce";
+import Zoom from "react-reveal/Zoom";
+import Slide from "react-reveal/Slide";
 
-import {ClipLoader} from 'react-spinners'
+import { ClipLoader } from "react-spinners";
 
 const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([]);
@@ -23,7 +26,7 @@ const Products = ({ category, filters, sort }) => {
       }
       setLoading(false);
     };
-    getProducts()
+    getProducts();
   }, [category]);
 
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -56,27 +59,34 @@ const Products = ({ category, filters, sort }) => {
   }, [sort]);
 
   return (
+    // <Bounce bottom>
     <div className="products-container">
-      {loading ? (
-        <div className="loading-container">
-          <ClipLoader color="#36d7b7" />
-          
-        </div>
-      ) : (
-        <>
-          {category
-            ? filteredProducts.map((item) => (
-                <Product item={item} key={item.id} />
-              ))
-            : products
-                ?.slice(0, 8)
-                .map((item) => <Product item={item} key={item.id} />)}
-          {popularProducts.map((item) => (
-            <Product item={item} key={item.id} />
-          ))}
-        </>
-      )}
+      <Slide bottom>
+      <h1>Today's Best Deals!</h1>
+      </Slide>
+      <div className="products-wrapper">
+        {loading ? (
+          <div className="loading-container">
+            <ClipLoader color="#36d7b7" />
+          </div>
+        ) : (
+          <>
+            {category
+              ? filteredProducts.map((item) => (
+                  <Product item={item} key={item.id} />
+                ))
+              : products
+                  ?.slice(0, 8)
+                  .map((item) => <Product item={item} key={item.id} />)}
+            {popularProducts.map((item) => (
+              <Product item={item} key={item.id} />
+            ))}
+          </>
+        )}
+      </div>
     </div>
+
+    // </Bounce>
   );
 };
 
