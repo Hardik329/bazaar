@@ -1,23 +1,21 @@
 import { Link } from "react-router-dom";
-import './CategoryItem.css'
-
+import "./CategoryItem.css";
+import Zoom from "react-reveal/Zoom";
 
 const CategoryItem = ({ item }) => {
   return (
-    <div className="catItem-container">
+    <Zoom>
+      <div className="catItem-container">
+        <Link to={`/products/${item.cat}`}>
+          <img src={item.img} className="catItem-image" />
 
-      <Link to={`/products/${item.cat}`}>
-      
-      <img src={item.img} className="catItem-image"/>
-
-      <div className="catItem-info">
-        <div className="catItem-title">
-          {item.title}
-        </div>
-          <button className="catItem-button">SHOP NOW</button>
+          <div className="catItem-info">
+            <div className="catItem-title">{item.title}</div>
+            <button className="catItem-button">SHOP NOW</button>
+          </div>
+        </Link>
       </div>
-      </Link>
-    </div>
+    </Zoom>
   );
 };
 
