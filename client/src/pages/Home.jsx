@@ -11,11 +11,6 @@ import Products from "../components/products/Products";
 import Slider from "../components/slider/Slider";
 import { ClipLoader } from "react-spinners";
 
-// import { fetchCart } from "../redux/cartSlice";
-// import { userRequest } from "../useFetch.js";
-
-// import axios from 'axios'
-// import {products} from '../large_data.js'
 
 const Home = () => {
   const dispatch = useDispatch();
