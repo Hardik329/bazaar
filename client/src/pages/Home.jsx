@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import "./Home.css";
+
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Announcement from "../components/announcement/Announcement";
 import Categories from "../components/categories/Categories";
@@ -7,6 +9,8 @@ import Navbar from "../components/navbar/Navbar";
 import Newsletter from "../components/newsletter/Newsletter";
 import Products from "../components/products/Products";
 import Slider from "../components/slider/Slider";
+import { ClipLoader } from "react-spinners";
+
 // import { fetchCart } from "../redux/cartSlice";
 // import { userRequest } from "../useFetch.js";
 
@@ -14,10 +18,10 @@ import Slider from "../components/slider/Slider";
 // import {products} from '../large_data.js'
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const currentUser = user?.currentUser;
 
-  const dispatch = useDispatch()
-  const user = useSelector(state=>state.user)
-  const currentUser = user?.currentUser
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -49,9 +53,10 @@ const Home = () => {
     // };
     // addData();
   }, []);
+  
 
   return (
-    <div className="container">
+    <div className="home-container">
       <Announcement />
       <Navbar />
       <Slider />

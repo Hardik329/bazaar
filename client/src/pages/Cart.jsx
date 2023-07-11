@@ -11,9 +11,11 @@ import { useNavigate } from "react-router-dom";
 import { publicRequest } from "../useFetch";
 import { makeRequest } from "../useFetch";
 import StripeCheckout from "react-stripe-checkout";
+import Fade from "react-reveal/Fade";
+import Slide from "react-reveal/Slide";
+import Zoom from "react-reveal/Zoom";
 
 import { logo } from "../data";
-import { updateCart } from "../utils/sync";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -50,9 +52,17 @@ const Cart = () => {
           );
 
           const arr = await Promise.all(promises);
-          const products = arr.map((res,i) => {
-            const { _id,img, desc, title, categories, price} = res.data;
-            return { _id,img, desc, title, categories, price,quantity:cart.products[i].quantity};
+          const products = arr.map((res, i) => {
+            const { _id, img, desc, title, categories, price } = res.data;
+            return {
+              _id,
+              img,
+              desc,
+              title,
+              categories,
+              price,
+              quantity: cart.products[i].quantity,
+            };
           });
 
           const state = {
@@ -62,7 +72,6 @@ const Cart = () => {
           };
 
           dispatch(setCart(state));
-
         }
       } catch (error) {
         console.log(error);
@@ -71,9 +80,6 @@ const Cart = () => {
 
     currentUser && fetchCart();
   }, []);
-
-
-  
 
   const KEY =
     "pk_test_51MCzfVSCUl7TzaqZOwgokhyicYqLFEoxg7eKJ2o5qHOCdqtFpxXbbhXqYyd4T0wtDiVUVh45HRih3q9SBNtep79i001l3cVmDW";
@@ -147,110 +153,121 @@ const Cart = () => {
           )}
         </div>
         <div className="cart-bottom">
-          <div className="cart-info">
-            {cart.products.length === 0 && (
-              <>
-                <div className="empty-container">
-                  <div className="empty-text">Your bag is empty!</div>
-                  <button
-                    className="cart-button"
-                    style={{ width: "max-content", padding: "12px" }}
-                    onClick={() => navigate("/")}
+          <Zoom duration={500} cascade>
+            <div className="cart-info">
+              {cart.products.length === 0 && (
+                <>
+                  <div className="empty-container">
+                    <div className="empty-text">Your bag is empty!</div>
+                    <button
+                      className="cart-button"
+                      style={{ width: "max-content", padding: "12px" }}
+                      onClick={() => navigate("/")}
+                    >
+                      SHOP NOW
+                    </button>
+                  </div>
+                </>
+              )}
+              {cart.products?.map((product) => (
+                <div className="cart-product">
+                  <div
+                    className="cart-product-detail"
+                    onClick={() => navigate("/product/" + product._id)}
+                    style={{ cursor: "pointer" }}
                   >
-                    SHOP NOW
-                  </button>
-                </div>
-              </>
-            )}
-            {cart.products?.map((product) => (
-              <div className="cart-product">
-                <div
-                  className="cart-product-detail"
-                  onClick={() => navigate("/product/" + product._id)}
-                  style={{ cursor: "pointer" }}
-                >
-                  <img
-                    className="cart-image"
-                    src={product.img}
-                    alt={product.title}
-                  />
-                  <div className="cart-details">
-                    <span className="cart-product-name">
-                      <b>Product:</b> {product.title}
-                    </span>
-                    {/* <span className="cart-product-id">
-                      <b>ID:</b> {product._id}
-                    </span> */}
-                    <div
-                      className="cart-product-color"
-                      style={{ backgroundColor: product.color }}
+                    <img
+                      className="cart-image"
+                      src={product.img}
+                      alt={product.title}
                     />
-                    <span className="cart-product-size">
-                      <b>Size:</b> {product.size}
-                    </span>
-                  </div>
-                </div>
-                <div className="cart-price-detail">
-                  <div className="product-amount-container">
-                    <AddIcon
-                      onClick={() => {
-                        handleClick(["add", product]);
-                      }}
-                    />
-                    <div className="cart-product-amount">
-                      {product.quantity}
+                    <div className="cart-details">
+                      <span className="cart-product-name">
+                        <b>Product:</b> {product.title}
+                      </span>
+                      <div
+                        className="cart-product-color"
+                        style={{ backgroundColor: product.color }}
+                      />
+                      {product.size && product.size.length !== 0 && (
+                        <span className="cart-product-size">
+                          <b>Size:</b> {product.size}
+                        </span>
+                      )}
                     </div>
-
-                    <RemoveIcon
-                      onClick={() => {
-                        handleClick(["remove", product]);
-                      }}
-                    />
                   </div>
-                  <div className="cart-product-price">
-                    $ {product.price * product.quantity}
+                  <div className="cart-price-detail">
+                    <div className="cart-product-amount-container">
+                      <AddIcon
+                        onClick={() => {
+                          handleClick(["add", product]);
+                        }}
+                      />
+                      <div className="cart-product-amount">
+                        {product.quantity}
+                      </div>
+
+                      <RemoveIcon
+                        onClick={() => {
+                          handleClick(["remove", product]);
+                        }}
+                      />
+                    </div>
+                    <div className="cart-product-price">
+                      ₹{" "}
+                      {Number(
+                        product.price * product.quantity
+                      ).toLocaleString()}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-            <hr className="hr" />
-          </div>
-          {cart.products.length > 0 && (
-            <div className="summary">
-              <h1 className="summary-title">ORDER SUMMARY</h1>
-              <div className="summary-item">
-                <span className="summary-item-text">Subtotal</span>
-                <span className="summary-item-price">$ {cart.total}</span>
-              </div>
-              <div className="summary-item">
-                <span className="summary-item-text">Estimated Shipping</span>
-                <span className="summary-item-price">$ 5.90</span>
-              </div>
-              <div className="summary-item">
-                <span className="summary-item-text">Shipping Discount</span>
-                <span className="summary-item-price">$ -5.90</span>
-              </div>
-              <div
-                className="summary-item"
-                style={{ fontSize: "24px", fontWeight: "500" }}
-              >
-                <span className="summary-item-text">Total</span>
-                <span className="summary-item-price">$ {cart.total}</span>
-              </div>
-              <StripeCheckout
-                name="BAZAAR"
-                image={logo}
-                billingAddress
-                shippingAddress
-                description={`Your total is $${cart.total}`}
-                amount={cart.total * 100}
-                token={onToken}
-                stripeKey={KEY}
-              >
-                <button className="cart-button">CHECKOUT NOW</button>
-              </StripeCheckout>
+              ))}
+
+              <hr className="hr" />
             </div>
-          )}
+          </Zoom>
+          <Fade delay={500}>
+            {cart.products.length > 0 && (
+              <div className="summary">
+                <h1 className="summary-title">ORDER SUMMARY</h1>
+                <div className="summary-item">
+                  <span className="summary-item-text">Subtotal</span>
+                  <span className="summary-item-price">
+                    ₹ {Number(cart.total).toLocaleString()}
+                  </span>
+                </div>
+                <div className="summary-item">
+                  <span className="summary-item-text">Estimated Shipping</span>
+                  <span className="summary-item-price">₹ 40</span>
+                </div>
+                <div className="summary-item">
+                  <span className="summary-item-text">Shipping Discount</span>
+                  <span className="summary-item-price">₹ -40</span>
+                </div>
+                <div
+                  className="summary-item"
+                  style={{ fontSize: "24px", fontWeight: "500" }}
+                >
+                  <span className="summary-item-text">Total</span>
+                  <span className="summary-item-price">
+                    ₹ {Number(cart.total).toLocaleString()}
+                  </span>
+                </div>
+                <StripeCheckout
+                  name="BAZAAR"
+                  image={logo}
+                  billingAddress
+                  shippingAddress
+                  description={`Your total is ₹${cart.total}`}
+                  amount={cart.total * 100}
+                  token={onToken}
+                  stripeKey={KEY}
+                >
+                  <button className="cart-button">CHECKOUT NOW</button>
+                </StripeCheckout>
+              </div>
+            )}
+          </Fade>
         </div>
       </div>
       <Footer />

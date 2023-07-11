@@ -58,7 +58,7 @@ const Slider = () => {
               <img src={slide.img} alt="" />
             </div>
             <div className="infoContainer">
-              <Fade delay={50} opposite left={direct==='left'} right={direct==='right'} when={sliderItems[slideIndex]===slide}>
+              <Fade delay={50} appear opposite left={direct==='left'} right={direct==='right'} when={sliderItems[slideIndex]===slide}>
                 <h1 className="slider-title">{slide.title}</h1>
               </Fade>
               <p className="slider-desc">{slide.desc}</p>

@@ -60,29 +60,38 @@ const Product = () => {
         <div className="p-info-container">
           <h1 className="p-title">{product?.title}</h1>
           <p className="p-desc">{product?.desc}</p>
-          <span className="p-price">$ {product?.price}</span>
+          <span className="p-price">
+            <span style={{ fontWeight: "100", fontStyle: "Roboto Mono" }}>
+              ₹
+            </span>{" "}
+            {Number(product?.price).toLocaleString()}
+          </span>
           <div className="p-filter-container">
-            <div className="p-filter">
-              <span className="p-filter-title">Color</span>
-              {product?.color?.map((c) => (
-                <div
-                  className="p-filter-color"
-                  style={{ backgroundColor: c }}
-                  onClick={() => setColor(c)}
-                />
-              ))}
-            </div>
-            <div className="p-filter">
-              <span className="p-filter-title">Size</span>
-              <select
-                className="p-filter-size"
-                onChange={(e) => setSize(e.target.value)}
-              >
-                {product?.size?.map((s) => (
-                  <option key={s}>{s}</option>
+            {product?.color.length > 0 && (
+              <div className="p-filter">
+                <span className="p-filter-title">Color</span>
+                {product?.color?.map((c) => (
+                  <div
+                    className="p-filter-color"
+                    style={{ backgroundColor: c }}
+                    onClick={() => setColor(c)}
+                  />
                 ))}
-              </select>
-            </div>
+              </div>
+            )}
+            {product?.size.length > 0 && (
+              <div className="p-filter">
+                <span className="p-filter-title">Size</span>
+                <select
+                  className="p-filter-size"
+                  onChange={(e) => setSize(e.target.value)}
+                >
+                  {product?.size?.map((s) => (
+                    <option key={s}>{s}</option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
 
           <div className="p-add-container">

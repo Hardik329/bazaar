@@ -1,42 +1,47 @@
 import { useEffect, useState } from "react";
-import { popularProducts } from "../../data";
 import Product from "../product/Product";
 import "./Products.css";
 import { publicRequest } from "../../useFetch";
-import Bounce from "react-reveal/Bounce";
-import Zoom from "react-reveal/Zoom";
 import Slide from "react-reveal/Slide";
 
 import { ClipLoader } from "react-spinners";
 
+import { preload } from "swr";
+
+import useSWRImmutable from "swr/immutable";
+
+preload("/products", () =>
+  publicRequest
+    .get("/products")
+    .then((res) => res.data)
+    .then((data) => console.log(data))
+);
+
 const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const getProducts = async () => {
-      setLoading(true);
-      try {
-        const res = await publicRequest.get(
-          category ? `/products?category=${category}` : "/products"
-        );
-        setProducts(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-      setLoading(false);
-    };
-    getProducts();
-  }, [category]);
-
+  const { data, error, isLoading } = useSWRImmutable(
+    [category ? `/products?category=${category}` : "/products", category],
+    () =>
+      publicRequest
+        .get(category ? `/products?category=${category}` : "/products")
+        .then((res) => res.data)
+        .then((data) => {
+          setProducts(data);
+        })
+  );
   const [filteredProducts, setFilteredProducts] = useState([]);
+
+  console.log(filteredProducts);
+  console.log(filters);
 
   useEffect(() => {
     category &&
       setFilteredProducts(
         products.filter((item) =>
-          Object.entries(filters).every(([key, value]) =>
-            item[key].includes(value)
+          Object.entries(filters).every(
+            ([key, value]) =>
+              value.toLowerCase() === key || item[key].includes(value)
           )
         )
       );
@@ -62,26 +67,23 @@ const Products = ({ category, filters, sort }) => {
     // <Bounce bottom>
     <div className="products-container">
       <Slide bottom>
-      <h1>Today's Best Deals!</h1>
+        <h1>Today's Best Deals!</h1>
       </Slide>
       <div className="products-wrapper">
-        {loading ? (
+        {isLoading ? (
           <div className="loading-container">
             <ClipLoader color="#36d7b7" />
           </div>
-        ) : (
-          <>
-            {category
-              ? filteredProducts.map((item) => (
-                  <Product item={item} key={item.id} />
-                ))
-              : products
-                  ?.slice(0, 8)
-                  .map((item) => <Product item={item} key={item.id} />)}
-            {popularProducts.map((item) => (
+        ) : category ? (
+          filteredProducts.map((item) => (
+            <div className="products">
               <Product item={item} key={item.id} />
-            ))}
-          </>
+            </div>
+          ))
+        ) : (
+          products?.slice(0, 8).map((item) => (
+              <Product item={item} key={item.id} />
+          ))
         )}
       </div>
     </div>

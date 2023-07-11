@@ -10,7 +10,7 @@ const CategoryItem = ({ item }) => {
           <img src={item.img} className="catItem-image" />
 
           <div className="catItem-info">
-            <div className="catItem-title">{item.title}</div>
+            <div className="catItem-title" style={item.style}>{item.title}</div>
             <button className="catItem-button">SHOP NOW</button>
           </div>
         </Link>

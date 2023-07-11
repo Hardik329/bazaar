@@ -9,29 +9,47 @@ import {
   removeFromWishlist,
   setWishlist,
 } from "../redux/wishlistSlice";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateWishlist } from "../utils/sync";
+
+// import { CSSTransition, TransitionGroup } from "react-transition-group";
+
+import Slide from "react-reveal/Slide";
+import Flip from "react-reveal/Flip";
+import Zoom from "react-reveal/Zoom";
+import Rotate from "react-reveal/Rotate";
+import { makeRequest } from "../useFetch";
 
 const Wishlist = () => {
   const cart = useSelector((state) => state.cart);
   const wishlist = useSelector((state) => state.wishlist);
   const user = useSelector((state) => state.user);
-
+  const { userRequest } = makeRequest(user?.currentUser?.accessToken);
   const currentUser = user?.currentUser;
 
   const navigate = useNavigate();
-  console.log(wishlist);
+  const [show, setShow] = useState(true);
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     dispatch(setWishlist(currentUser?.wishlist));
   }, []);
 
   useEffect(() => {
-    currentUser &&
-      updateWishlist({ user: currentUser, wishlist: wishlist.products });
-  }, [wishlist]);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    const fetchWishlist = async () => {
+      console.log("called fetchWishlist");
+      try {
+        const user = await userRequest.get("/users/find/" + currentUser._id);
+        dispatch(setWishlist(user.wishlist));
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
+    currentUser && fetchWishlist();
+  }, []);
   const dispatch = useDispatch();
 
   const topButtonStyle = {
@@ -70,7 +88,9 @@ const Wishlist = () => {
             </span>
           </div>
         </div>
+
         <div className="wishlist-bottom">
+          {/* <Zoom collapse cascade> */}
           <div className="wishlist-info">
             {wishlist.products.length === 0 && (
               <>
@@ -87,35 +107,44 @@ const Wishlist = () => {
               </>
             )}
             {wishlist.products?.map((product) => (
-              <div className="wishlist-product">
+              <Zoom duration={500}>
                 <div
-                  className="wishlist-product-detail"
-                  onClick={() => navigate("/product/" + product._id)}
-                  style={{ cursor: "pointer" }}
+                  className="wishlist-product"
+                  style={{ display: show === false && "none" }}
                 >
-                  <img
-                    className="wishlist-image"
-                    src={product.img}
-                    alt={product.title}
-                  />
-                  <div className="wishlist-details">
-                    <span className="wishlist-product-name">
-                      {product.title}
-                    </span>
-                  </div>
-                </div>
-                <div className="wishlist-price-detail">
-                  <div className="product-amount-container">
-                    <DeleteIcon
-                      style={{ cursor: "pointer" }}
-                      onClick={() => dispatch(removeFromWishlist(product))}
+                  <div
+                    className="wishlist-product-detail"
+                    onClick={() => navigate("/product/" + product._id)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <img
+                      className="wishlist-image"
+                      src={product.img}
+                      alt={product.title}
                     />
+                    <div className="wishlist-details">
+                      <span className="wishlist-product-name">
+                        {product.title}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="wishlist-price-detail">
+                    <div className="product-amount-container">
+                      <DeleteIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          dispatch(removeFromWishlist(product));
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Zoom>
             ))}
+
             <hr className="hr" />
           </div>
+          {/* </Zoom> */}
         </div>
       </div>
       <Footer />

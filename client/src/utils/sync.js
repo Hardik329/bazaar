@@ -21,24 +21,3 @@ export const updateCart = async({user,cart})=>{
       }
 
 }
-
-export const updateWishlist = async({user,wishlist})=>{
-    try {
-        const res = await userRequest.put("/users/" + user._id, {
-            ...user,
-            wishlist: wishlist,
-        },
-        {
-          headers:{
-            token: `Bearer ${user.accessToken}` 
-          }
-        });
-
-        console.log(res);
-        
-      } catch (error) {
-        console.log("Error in updating wishlist: ",error);
-        
-      }
-
-}

@@ -57,8 +57,6 @@
   }
 
 
-
-
   .cart-wrapper{
     padding: 10px;
   }
@@ -72,12 +70,20 @@
   }
   .cart-product{
     flex-direction: column;
+    gap: 7px;
   }
   .cart-product-amount{
     margin: 5px 15px;
   }
   .cart-product-price{
     margin-bottom: 20px;
+    flex-direction: row;
+  }
+
+  .cart-price-detail{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
   }
 
   .login-wrapper{

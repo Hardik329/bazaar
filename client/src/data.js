@@ -31,20 +31,27 @@ export const sliderItems = [
     {
       id: 1,
       img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      title: "SHIRT STYLE!",
-      cat:"women"
+      img: "https://cdn.shopify.com/s/files/1/0274/0086/3853/t/31/assets/f3d07d21898a--Picture1-59-2-71cfa7.png?v=1684233913",
+      img: "https://images.bewakoof.com/uploads/grid/app/types-of-shirts-for-men-bewakoof-blog-4-1610963788.jpg",
+      img: "https://th.bing.com/th/id/OIG.iBusQwybGo5DS1mMBc.y?pid=ImgGn",
+      title: "ACCESSORIES",
+      cat:"accessory"
     },
     {
       id: 2,
       img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      title: "LOUNGEWEAR LOVE",
-      cat:"coat"
+      img: "https://www.fashionmate.in/wp-content/uploads/2023/04/Top-15-Fashion-Accessories-For-Men-1.jpg",
+      img: "https://cdn.luxe.digital/media/2019/09/12084906/casual-dress-code-men-street-style-luxe-digital-1.jpg",
+      title: "CASUAL WEAR",
+      cat:"casual",
+      // style:{color:"black",fontSize:"80px",fontWeight:"500"}
     },
     {
       id: 3,
       img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      title: "LIGHT JACKETS",
-      cat:"jeans"
+      img: "https://images.unsplash.com/photo-1617922001439-4a2e6562f328?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d29tZW4lMjBmYXNoaW9ufGVufDB8fDB8fHww&w=1000&q=80",
+      title: "SUMMERWEAR",
+      cat:"summerwear"
     },
   ];
 

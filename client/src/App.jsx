@@ -9,14 +9,18 @@ import { Routes, BrowserRouter, Route, Navigate } from "react-router-dom";
 import "./responsive.css";
 import Success from "./pages/Success";
 import Wishlist from "./pages/Wishlist";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { updateCart } from "./utils/sync";
+import { makeRequest } from "./useFetch";
 
 function App() {
-  const user = useSelector(state=>state.user);
-  const currentUser = user?.currentUser
-  const cart = useSelector(state=>state.cart)
+  const user = useSelector((state) => state.user);
+  const currentUser = user?.currentUser;
+  const cart = useSelector((state) => state.cart);
+  const wishlist = useSelector((state) => state.wishlist);
+
+  const { userRequest } = makeRequest(currentUser?.accessToken);
 
   useEffect(() => {
     console.log("Cart: ", cart);
@@ -38,6 +42,13 @@ function App() {
       });
   }, [cart]);
 
+  useEffect(() => {
+    console.log("Wishlist: ", wishlist);
+    currentUser &&
+      userRequest.put("/users/" + currentUser._id, {
+        wishlist: wishlist.products,
+      });
+  }, [wishlist]);
 
   return (
     <div className="App">

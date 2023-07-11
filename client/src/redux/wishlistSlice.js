@@ -21,6 +21,7 @@ const wishlistSlice = createSlice({
     },
 
     setWishlist: (state, action) => {
+      console.log(action.payload);
       if (action.payload) state.products = action.payload;
       else state.products = [];
     },

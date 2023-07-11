@@ -11,7 +11,7 @@ import { addToWishlist, removeFromWishlist } from "../../redux/wishlistSlice";
 
 import Bounce from "react-reveal/Bounce";
 import Zoom from "react-reveal/Zoom";
-import Slide from 'react-reveal/Slide';
+import Slide from "react-reveal/Slide";
 
 const Product = ({ item }) => {
   var isFav = false;
@@ -31,32 +31,25 @@ const Product = ({ item }) => {
   return (
     // <Zoom>
     <Slide bottom>
-
-      <Link
-        to={`/product/${item._id}`}
-        style={{ textDecoration: "none", color: "black" }}
-      >
-        <div className="product-container">
-          <div className="product-icon">
-            <div className="heart-icon">
-              <Heart isClick={isFav} onClick={handleClick} className="heart" />
-            </div>
+      <div className="product-container">
+        <div className="product-icon">
+          <div className="heart-icon">
+            <Heart isClick={isFav} onClick={handleClick} className="heart" />
           </div>
+        </div>
+        <Link
+          to={`/product/${item._id}`}
+          style={{ textDecoration: "none", color: "black" }}
+        >
           <div className="product-top">
             <div className="circle"></div>
             <div className="product-image">
-              <img src={item.img} alt="" className="product-img" />
-
-              {/* <div className="product-info">
-          <div className="product-icon">
-            <ShoppingCartOutlinedIcon />
-          </div>
-          <div className="product-icon">
-            <Link to={`/product/${item._id}`}>
-              <SearchIcon style={{ color: "black" }} />
-            </Link>
-          </div>
-        </div> */}
+              <img
+                src={item.img}
+                alt=""
+                className="product-img"
+                loading="lazy"
+              />
             </div>
           </div>
           <div className="product-info">
@@ -66,13 +59,18 @@ const Product = ({ item }) => {
             </div>
 
             <div className="product-right">
-              <div className="product-price">{item.price}</div>
+              <div className="product-price">
+                <div className="price-a">₹</div>
+                <div className="price-b">
+                  {Number(item.price).toLocaleString("en-US")}
+                </div>
+                <div className="price-c"></div>
+              </div>
             </div>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
     </Slide>
-
   );
 };
 
