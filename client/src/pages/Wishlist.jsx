@@ -5,31 +5,25 @@ import Footer from "../components/footer/Footer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./Wishlist.css";
 import {
-  addToWishlist,
   removeFromWishlist,
   setWishlist,
 } from "../redux/wishlistSlice";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { updateWishlist } from "../utils/sync";
 
-// import { CSSTransition, TransitionGroup } from "react-transition-group";
 
-import Slide from "react-reveal/Slide";
-import Flip from "react-reveal/Flip";
 import Zoom from "react-reveal/Zoom";
-import Rotate from "react-reveal/Rotate";
 import { makeRequest } from "../useFetch";
 
 const Wishlist = () => {
   const cart = useSelector((state) => state.cart);
   const wishlist = useSelector((state) => state.wishlist);
   const user = useSelector((state) => state.user);
-  const { userRequest } = makeRequest(user?.currentUser?.accessToken);
   const currentUser = user?.currentUser;
+  const { userRequest } = makeRequest(currentUser?.accessToken);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
-  const [show, setShow] = useState(true);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -41,8 +35,9 @@ const Wishlist = () => {
     const fetchWishlist = async () => {
       console.log("called fetchWishlist");
       try {
-        const user = await userRequest.get("/users/find/" + currentUser._id);
-        dispatch(setWishlist(user.wishlist));
+        const user = await userRequest.get("/users/currentUser/" + currentUser._id);
+        console.log(user);
+        dispatch(setWishlist(user.data.wishlist));
       } catch (error) {
         console.log(error);
       }
@@ -50,13 +45,7 @@ const Wishlist = () => {
 
     currentUser && fetchWishlist();
   }, []);
-  const dispatch = useDispatch();
 
-  const topButtonStyle = {
-    border: "none",
-    backgroundColor: "black",
-    color: "white",
-  };
 
   return (
     <div className="wishlist-container">
@@ -90,7 +79,6 @@ const Wishlist = () => {
         </div>
 
         <div className="wishlist-bottom">
-          {/* <Zoom collapse cascade> */}
           <div className="wishlist-info">
             {wishlist.products.length === 0 && (
               <>
@@ -110,7 +98,6 @@ const Wishlist = () => {
               <Zoom duration={500}>
                 <div
                   className="wishlist-product"
-                  style={{ display: show === false && "none" }}
                 >
                   <div
                     className="wishlist-product-detail"

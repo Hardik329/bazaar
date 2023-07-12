@@ -12,7 +12,6 @@ import { publicRequest } from "../useFetch";
 import { makeRequest } from "../useFetch";
 import StripeCheckout from "react-stripe-checkout";
 import Fade from "react-reveal/Fade";
-import Slide from "react-reveal/Slide";
 import Zoom from "react-reveal/Zoom";
 
 import { logo } from "../data";

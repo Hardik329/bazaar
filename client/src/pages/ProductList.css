@@ -1,7 +1,9 @@
 .pl-title {
   margin: 20px;
 }
-
+.pl-container{
+  width: 100%;
+}
 .pl-filter-container {
   display: flex;
   justify-content: space-between;

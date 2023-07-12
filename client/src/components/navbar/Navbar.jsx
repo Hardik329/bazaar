@@ -1,20 +1,78 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "./Navbar.css";
 import SearchIcon from "@mui/icons-material/Search";
 import Badge from "@mui/material/Badge";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/userSlice";
 import PersonIcon from "@mui/icons-material/Person";
-import { fetchCart } from "../../redux/cartSlice";
+import { setCart } from "../../redux/cartSlice";
+import { makeRequest, publicRequest } from "../../useFetch";
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
-  const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  
+  const user = useSelector((state) => state.user);
+  const currentUser = user?.currentUser;
+  const { userRequest } = makeRequest(currentUser?.accessToken);
+  const navigate = useNavigate();
 
+  const searchRef = useRef("");
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    const fetchCart = async () => {
+      console.log("called fetchCart");
+      try {
+        const res = await userRequest.get("/cart/find/" + currentUser._id);
+        if (!res.data) {
+          console.log("Empty state");
+
+          const state = {
+            products: [],
+            quantity: 0,
+            total: 0,
+          };
+
+          dispatch(setCart(state));
+        } else {
+          const cart = res.data;
+          console.log("cart: ", cart);
+
+          const promises = cart.products.map((product) =>
+            publicRequest.get("/products/find/" + product._id)
+          );
+
+          const arr = await Promise.all(promises);
+          const products = arr.map((res, i) => {
+            const { _id, img, desc, title, categories, price } = res.data;
+            return {
+              _id,
+              img,
+              desc,
+              title,
+              categories,
+              price,
+              quantity: cart.products[i].quantity,
+            };
+          });
+
+          const state = {
+            products: products,
+            quantity: cart.quantity,
+            total: cart.total,
+          };
+
+          dispatch(setCart(state));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    currentUser && fetchCart();
+  }, []);
 
   return (
     <div className="nav-container">
@@ -22,8 +80,11 @@ const Navbar = () => {
         <div className="nav-left">
           <div className="nav-lang">EN</div>
           <div className="nav-search-container">
-            <input type="text" className="nav-input" />
-            <SearchIcon style={{ color: "gray", fontSize: "16px" }} />
+            <input type="text" className="nav-input" ref={searchRef} />
+            <SearchIcon
+              style={{ color: "gray", fontSize: "16px",cursor:'pointer' }}
+              onClick={() => searchRef.current.value!=="" && navigate("/products/" + searchRef.current.value)}
+            />
           </div>
         </div>
         <div className="navcenter">

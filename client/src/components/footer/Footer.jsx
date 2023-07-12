@@ -18,9 +18,7 @@ const Footer = () => {
       <div className="footer-left">
         <h1>BAZAAR</h1>
         <div className="footer-desc">
-          There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration in some form, by injected
-          humour, or randomised words which don't look even slightly believable.
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam doloremque placeat labore exercitationem sequi cum, nesciunt voluptates, iusto explicabo, magni beatae necessitatibus voluptate eaque quidem eius dolorem modi aut ab!
         </div>
         <div className="social-container">
           <div className="social-icon" style={{ color: "#3B5999" }}>

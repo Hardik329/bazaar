@@ -48,7 +48,6 @@ const Product = ({ item }) => {
                 src={item.img}
                 alt=""
                 className="product-img"
-                loading="lazy"
               />
             </div>
           </div>

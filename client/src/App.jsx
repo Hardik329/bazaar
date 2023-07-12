@@ -22,6 +22,8 @@ function App() {
 
   const { userRequest } = makeRequest(currentUser?.accessToken);
 
+
+
   useEffect(() => {
     console.log("Cart: ", cart);
     currentUser &&
@@ -49,6 +51,7 @@ function App() {
         wishlist: wishlist.products,
       });
   }, [wishlist]);
+
 
   return (
     <div className="App">

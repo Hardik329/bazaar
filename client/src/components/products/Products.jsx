@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Product from "../product/Product";
 import "./Products.css";
-import { publicRequest } from "../../useFetch";
+import { makeRequest, publicRequest } from "../../useFetch";
 import Slide from "react-reveal/Slide";
 
 import { ClipLoader } from "react-spinners";
@@ -9,6 +9,8 @@ import { ClipLoader } from "react-spinners";
 import { preload } from "swr";
 
 import useSWRImmutable from "swr/immutable";
+import { useDispatch, useSelector } from "react-redux";
+import { setWishlist } from "../../redux/wishlistSlice";
 
 preload("/products", () =>
   publicRequest
@@ -19,6 +21,12 @@ preload("/products", () =>
 
 const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([]);
+
+  const user = useSelector((state) => state.user);
+  const currentUser = user?.currentUser;
+  const dispatch = useDispatch();
+
+  const { userRequest } = makeRequest(currentUser?.accessToken);
 
   const { data, error, isLoading } = useSWRImmutable(
     [category ? `/products?category=${category}` : "/products", category],
@@ -31,9 +39,6 @@ const Products = ({ category, filters, sort }) => {
         })
   );
   const [filteredProducts, setFilteredProducts] = useState([]);
-
-  console.log(filteredProducts);
-  console.log(filters);
 
   useEffect(() => {
     category &&
@@ -63,27 +68,43 @@ const Products = ({ category, filters, sort }) => {
     }
   }, [sort]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    const fetchWishlist = async () => {
+      console.log("called fetchWishlist");
+      try {
+        const user = await userRequest.get(
+          "/users/currentUser/" + currentUser._id
+        );
+        console.log(user);
+        dispatch(setWishlist(user.data.wishlist));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    currentUser && fetchWishlist();
+  }, []);
+
   return (
     // <Bounce bottom>
     <div className="products-container">
-      <Slide bottom>
-        <h1>Today's Best Deals!</h1>
-      </Slide>
+      {!category && (
+        <Slide bottom>
+          <h1>Today's Best Deals!</h1>
+        </Slide>
+      )}
       <div className="products-wrapper">
         {isLoading ? (
           <div className="loading-container">
             <ClipLoader color="#36d7b7" />
           </div>
         ) : category ? (
-          filteredProducts.map((item) => (
-            <div className="products">
-              <Product item={item} key={item.id} />
-            </div>
-          ))
+          filteredProducts.map((item) => <Product item={item} key={item.id} />)
         ) : (
-          products?.slice(0, 8).map((item) => (
-              <Product item={item} key={item.id} />
-          ))
+          products
+            ?.slice(0, 8)
+            .map((item) => <Product item={item} key={item.id} />)
         )}
       </div>
     </div>
