@@ -1,4 +1,5 @@
 import image from './images/img.png'
+import casual from './images/casual.jpg'
 
 export const logo = "https://i.ibb.co/FH1x3RH/cartLogo.jpg"
 // "https://ibb.co/Dr67mD2"
@@ -39,9 +40,9 @@ export const sliderItems = [
     },
     {
       id: 2,
+      img: casual,
       img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
       img: "https://www.fashionmate.in/wp-content/uploads/2023/04/Top-15-Fashion-Accessories-For-Men-1.jpg",
-      img: "https://cdn.luxe.digital/media/2019/09/12084906/casual-dress-code-men-street-style-luxe-digital-1.jpg",
       title: "CASUAL WEAR",
       cat:"casual",
       // style:{color:"black",fontSize:"80px",fontWeight:"500"}

@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
 // const TOKEN = store.getState()?.currentUser?.accessToken;
 
@@ -19,11 +18,10 @@ export const userRequest = axios.create({
   headers: { token: `Bearer ${TOKEN}` },
 });
 
-export const makeRequest = (token)=>{
-  
+export const makeRequest = (token) => {
   const userRequest = axios.create({
     baseURL: BASE_URL,
     headers: { token: `Bearer ${token}` },
   });
-  return {userRequest};
-}
+  return { userRequest };
+};
