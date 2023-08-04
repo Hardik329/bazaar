@@ -28,56 +28,56 @@ const Cart = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    const fetchCart = async () => {
-      console.log("called fetchCart");
-      try {
-        const res = await userRequest.get("/cart/find/" + currentUser._id);
-        if (!res.data) {
-          console.log("Empty state");
+    // const fetchCart = async () => {
+    //   console.log("called fetchCart");
+    //   try {
+    //     const res = await userRequest.get("/cart/find/" + currentUser._id);
+    //     if (!res.data) {
+    //       console.log("Empty state");
 
-          const state = {
-            products: [],
-            quantity: 0,
-            total: 0,
-          };
+    //       const state = {
+    //         products: [],
+    //         quantity: 0,
+    //         total: 0,
+    //       };
 
-          dispatch(setCart(state));
-        } else {
-          const cart = res.data;
-          console.log("cart: ", cart);
+    //       dispatch(setCart(state));
+    //     } else {
+    //       const cart = res.data;
+    //       console.log("cart: ", cart);
 
-          const promises = cart.products.map((product) =>
-            publicRequest.get("/products/find/" + product._id)
-          );
+    //       const promises = cart.products.map((product) =>
+    //         publicRequest.get("/products/find/" + product._id)
+    //       );
 
-          const arr = await Promise.all(promises);
-          const products = arr.map((res, i) => {
-            const { _id, img, desc, title, categories, price } = res.data;
-            return {
-              _id,
-              img,
-              desc,
-              title,
-              categories,
-              price,
-              quantity: cart.products[i].quantity,
-            };
-          });
+    //       const arr = await Promise.all(promises);
+    //       const products = arr.map((res, i) => {
+    //         const { _id, img, desc, title, categories, price } = res.data;
+    //         return {
+    //           _id,
+    //           img,
+    //           desc,
+    //           title,
+    //           categories,
+    //           price,
+    //           quantity: cart.products[i].quantity,
+    //         };
+    //       });
 
-          const state = {
-            products: products,
-            quantity: cart.quantity,
-            total: cart.total,
-          };
+    //       const state = {
+    //         products: products,
+    //         quantity: cart.quantity,
+    //         total: cart.total,
+    //       };
 
-          dispatch(setCart(state));
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    //       dispatch(setCart(state));
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
 
-    currentUser && fetchCart();
+    // currentUser && fetchCart();
   }, []);
 
   const KEY =

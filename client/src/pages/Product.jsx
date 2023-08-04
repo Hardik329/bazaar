@@ -67,7 +67,7 @@ const Product = () => {
             {Number(product?.price).toLocaleString()}
           </span>
           <div className="p-filter-container">
-            {product?.color.length > 0 && (
+            { product?.color.length > 0 && (
               <div className="p-filter">
                 <span className="p-filter-title">Color</span>
                 {product?.color?.map((c) => (

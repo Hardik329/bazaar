@@ -27,7 +27,6 @@ const Wishlist = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    dispatch(setWishlist(currentUser?.wishlist));
   }, []);
 
   useEffect(() => {
