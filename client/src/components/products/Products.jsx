@@ -6,18 +6,8 @@ import Slide from "react-reveal/Slide";
 
 import { ClipLoader } from "react-spinners";
 
-import { preload } from "swr";
-
-import useSWRImmutable from "swr/immutable";
 import { useDispatch, useSelector } from "react-redux";
 import { setWishlist } from "../../redux/wishlistSlice";
-
-preload("/products", () =>
-  publicRequest
-    .get("/products")
-    .then((res) => res.data)
-    .then((data) => console.log(data))
-);
 
 const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([]);
@@ -28,16 +18,23 @@ const Products = ({ category, filters, sort }) => {
 
   const { userRequest } = makeRequest(currentUser?.accessToken);
 
-  const { data, error, isLoading } = useSWRImmutable(
-    [category ? `/products?category=${category}` : "/products", category],
-    () =>
-      publicRequest
-        .get(category ? `/products?category=${category}` : "/products")
-        .then((res) => res.data)
-        .then((data) => {
-          setProducts(data);
-        })
-  );
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      setLoading(true);
+      try {
+        const res = await publicRequest.get(
+          category ? `/products?category=${category}` : "/products"
+        );
+        setProducts(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+      setLoading(false);
+    };
+    getProducts();
+  }, [category]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
@@ -95,7 +92,7 @@ const Products = ({ category, filters, sort }) => {
         </Slide>
       )}
       <div className="products-wrapper">
-        {isLoading ? (
+        {loading ? (
           <div className="loading-container">
             <ClipLoader color="#36d7b7" />
           </div>
