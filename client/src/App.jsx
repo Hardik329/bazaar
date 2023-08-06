@@ -7,7 +7,6 @@ import ProductList from "./pages/ProductList";
 import Register from "./pages/Register";
 import { Routes, BrowserRouter, Route, Navigate } from "react-router-dom";
 import "./responsive.css";
-import Success from "./pages/Success";
 import Wishlist from "./pages/Wishlist";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -21,8 +20,6 @@ function App() {
   const wishlist = useSelector((state) => state.wishlist);
 
   const { userRequest } = makeRequest(currentUser?.accessToken);
-
-
 
   useEffect(() => {
     console.log("Cart: ", cart);
@@ -52,7 +49,6 @@ function App() {
       });
   }, [wishlist]);
 
-
   return (
     <div className="App">
       <BrowserRouter>
@@ -71,7 +67,6 @@ function App() {
           <Route path="/products" element={<ProductList />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/success" element={<Success />} />
         </Routes>
       </BrowserRouter>
     </div>
