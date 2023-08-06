@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { publicRequest, userRequest } from "../useFetch";
 
 const cartSlice = createSlice({
   name: "cart",

@@ -1,16 +1,11 @@
 import { Link } from "react-router-dom";
 
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import SearchIcon from "@mui/icons-material/Search";
 import "./Product.css";
-import { useState } from "react";
 
 import Heart from "react-animated-heart";
 import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist, removeFromWishlist } from "../../redux/wishlistSlice";
 
-import Bounce from "react-reveal/Bounce";
-import Zoom from "react-reveal/Zoom";
 import Slide from "react-reveal/Slide";
 
 const Product = ({ item }) => {

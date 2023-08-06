@@ -60,7 +60,7 @@ router.get("/find/:id", verifyTokenAndAuthorization, async (req, res) => {
   }
 });
 
-// //GET ALL
+//GET ALL
 
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   try {
