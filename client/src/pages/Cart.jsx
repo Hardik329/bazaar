@@ -28,56 +28,6 @@ const Cart = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    // const fetchCart = async () => {
-    //   console.log("called fetchCart");
-    //   try {
-    //     const res = await userRequest.get("/cart/find/" + currentUser._id);
-    //     if (!res.data) {
-    //       console.log("Empty state");
-
-    //       const state = {
-    //         products: [],
-    //         quantity: 0,
-    //         total: 0,
-    //       };
-
-    //       dispatch(setCart(state));
-    //     } else {
-    //       const cart = res.data;
-    //       console.log("cart: ", cart);
-
-    //       const promises = cart.products.map((product) =>
-    //         publicRequest.get("/products/find/" + product._id)
-    //       );
-
-    //       const arr = await Promise.all(promises);
-    //       const products = arr.map((res, i) => {
-    //         const { _id, img, desc, title, categories, price } = res.data;
-    //         return {
-    //           _id,
-    //           img,
-    //           desc,
-    //           title,
-    //           categories,
-    //           price,
-    //           quantity: cart.products[i].quantity,
-    //         };
-    //       });
-
-    //       const state = {
-    //         products: products,
-    //         quantity: cart.quantity,
-    //         total: cart.total,
-    //       };
-
-    //       dispatch(setCart(state));
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
-
-    // currentUser && fetchCart();
   }, []);
 
   const KEY =
@@ -89,24 +39,6 @@ const Cart = () => {
     setStripeToken(token);
   };
 
-  useEffect(() => {
-    const makeRequest = async () => {
-      try {
-        const res = await userRequest.post("/checkout/payment", {
-          token: stripeToken,
-          tokenId: stripeToken.id,
-          amount: 500,
-        });
-        navigate("/", {
-          state: {
-            stripeData: res.data,
-            products: cart,
-          },
-        });
-      } catch {}
-    };
-    stripeToken && makeRequest();
-  }, [stripeToken, cart, navigate]);
 
   const handleClick = ([operation, product]) => {
     if (operation === "add") {
