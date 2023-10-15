@@ -7,8 +7,8 @@ import authRoute from "./routes/auth.js";
 import userRoute from "./routes/user.js";
 import productRoute from "./routes/product.js";
 import cartRoute from "./routes/cart.js";
-import orderRoute from "./routes/order.js";
-import stripeRoute from "./routes/stripe.js";
+// import orderRoute from "./routes/order.js";
+// import stripeRoute from "./routes/stripe.js";
 
 const app = express();
 
