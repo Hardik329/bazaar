@@ -7,7 +7,7 @@ const CategoryItem = ({ item }) => {
     <Zoom>
       <div className="catItem-container">
         <Link to={`/products/${item.cat}`}>
-          <img src={item.img} className="catItem-image" />
+          <img src={item.img} className="catItem-image" alt={item.cat}/>
 
           <div className="catItem-info">
             <div className="catItem-title" style={item.style}>{item.title}</div>

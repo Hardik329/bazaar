@@ -18,11 +18,13 @@ router.post("/register", async (req, res) => {
     ).toString(),
   });
 
+
   try {
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   } catch (err) {
     res.status(500).json(err);
+    
   }
 });
 
@@ -33,13 +35,11 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ username: req.body.username });
     if (!user) return res.status(401).json("User does not exist!");
 
-    
     const hashedPassword = CryptoJS.AES.decrypt(
       user.password,
       process.env.PASS_SEC
-      );
-      const OriginalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-      console.log("Correct pass: ", OriginalPassword);
+    );
+    const OriginalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
     if (OriginalPassword !== req.body.password)
       return res.status(401).json("Wrong credentials!");

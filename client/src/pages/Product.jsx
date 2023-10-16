@@ -5,12 +5,13 @@ import Navbar from "../components/navbar/Navbar";
 import Announcement from "../components/announcement/Announcement";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import "./Product.css";
 import { publicRequest } from "../useFetch";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
+import { ShimmerText, ShimmerThumbnail, ShimmerTitle } from "react-shimmer-effects";
 
 const Product = () => {
   useEffect(() => {
@@ -25,12 +26,15 @@ const Product = () => {
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+  const [imgLoading, setImgLoading] = useState(true);
 
   useEffect(() => {
     const getProduct = async () => {
       try {
         const res = await publicRequest.get("/products/find/" + id);
         setProduct(res.data);
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -55,19 +59,23 @@ const Product = () => {
       <Announcement />
       <div className="p-wrapper">
         <div className="p-img-container">
-          <img className="p-image" src={product?.img} />
+          {imgLoading && <ShimmerThumbnail height={500}/>}
+          <img className="p-image" src={product?.img} alt={product?.img} style = {{display: imgLoading ? "none": "block"}} onLoad = {()=> setImgLoading(false)}/>
         </div>
         <div className="p-info-container">
-          <h1 className="p-title">{product?.title}</h1>
-          <p className="p-desc">{product?.desc}</p>
+          <h1 className="p-title">{loading ? <ShimmerTitle line={1}/> : product?.title}</h1>
+          <p className="p-desc">{loading ? <ShimmerText line={5}/> : product?.desc}</p>
+
+          {!loading &&
           <span className="p-price">
+            
             <span style={{ fontWeight: "100", fontStyle: "Roboto Mono" }}>
               ₹
             </span>{" "}
             {Number(product?.price).toLocaleString()}
-          </span>
-          <div className="p-filter-container">
-            { product?.color.length > 0 && (
+          </span>}
+          {!loading && <div className="p-filter-container">
+            {product?.color.length > 0 && (
               <div className="p-filter">
                 <span className="p-filter-title">Color</span>
                 {product?.color?.map((c) => (
@@ -93,8 +101,8 @@ const Product = () => {
               </div>
             )}
           </div>
-
-          <div className="p-add-container">
+}
+          {!loading && <div className="p-add-container">
             <div className="p-amount-container">
               <RemoveIcon onClick={() => handleQuantity("dec")} />
               <div className="p-amount">{quantity}</div>
@@ -103,9 +111,10 @@ const Product = () => {
             <button className="p-button" onClick={handleClick}>
               ADD TO CART
             </button>
-          </div>
+          </div>}
         </div>
       </div>
+                  
       <Newsletter />
       <Footer />
     </div>

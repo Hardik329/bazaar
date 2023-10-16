@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { sliderItems } from "../../data";
 import Slide from "react-reveal/Slide";
 import Fade from "react-reveal/Fade";
+import { ShimmerThumbnail } from "react-shimmer-effects";
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -23,19 +24,10 @@ const Slider = () => {
     ref.current.style.transform = `translateX(${-slideIndex * 100}vw)`;
   }, [slideIndex]);
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     setTitleColor((color) => {
-  //       if (color === "black") return "red";
-  //       else return "black";
-  //     });
-  //   }, 500);
-  // }, []);
 
   const handleClick = (direction) => {
     setDirect(direction);
     setShow(true)
-    // setShow(false)
 
     direction === "left"
       ? setSlideIndex((slideIndex) =>
@@ -46,6 +38,10 @@ const Slider = () => {
         );
   };
 
+  const handleLoad = (e)=>{
+    e.target.style.display="block";
+  }
+
   return (
     <div className="slider-container">
       <div className="arrow arrow-left">
@@ -55,7 +51,7 @@ const Slider = () => {
         {sliderItems.map((slide) => (
           <div className="slide" style={{ backgroundColor: slide.bg }}>
             <div className="imgContainer">
-              <img src={slide.img} alt="" />
+              <img src={slide.img} style={{display:"none"}} alt="" onLoad = {(e) => handleLoad(e)} />
             </div>
             <div className="infoContainer">
               <Fade delay={50} appear opposite left={direct==='left'} right={direct==='right'} when={sliderItems[slideIndex]===slide}>

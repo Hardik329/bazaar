@@ -4,10 +4,9 @@ import "./Products.css";
 import { makeRequest, publicRequest } from "../../useFetch";
 import Slide from "react-reveal/Slide";
 
-import { ClipLoader } from "react-spinners";
-
 import { useDispatch, useSelector } from "react-redux";
 import { setWishlist } from "../../redux/wishlistSlice";
+import Shimmer from "../shimmer/Shimmer";
 
 const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([]);
@@ -18,35 +17,36 @@ const Products = ({ category, filters, sort }) => {
 
   const { userRequest } = makeRequest(currentUser?.accessToken);
 
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getProducts = async () => {
-      setLoading(true);
+      // setLoading(true);
       try {
         const res = await publicRequest.get(
           category ? `/products?category=${category}` : "/products"
         );
-        setProducts(res.data);
+        await setProducts(res.data);
       } catch (err) {
         console.log(err);
       }
-      setLoading(false);
+      // setLoading(false);
     };
     getProducts();
   }, [category]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    category &&
-      setFilteredProducts(
-        products.filter((item) =>
-          Object.entries(filters).every(
-            ([key, value]) =>
-              value.toLowerCase() === key || item[key].includes(value)
+    category
+      ? setFilteredProducts(
+          products.filter((item) =>
+            Object.entries(filters).every(
+              ([key, value]) =>
+                value.toLowerCase() === key || item[key].includes(value)
+            )
           )
         )
-      );
+      : setFilteredProducts(products);
   }, [products, category, filters]);
 
   useEffect(() => {
@@ -68,7 +68,6 @@ const Products = ({ category, filters, sort }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     const fetchWishlist = async () => {
-      console.log("called fetchWishlist");
       try {
         const user = await userRequest.get(
           "/users/currentUser/" + currentUser._id
@@ -84,7 +83,6 @@ const Products = ({ category, filters, sort }) => {
   }, []);
 
   return (
-    // <Bounce bottom>
     <div className="products-container">
       {!category && (
         <Slide bottom>
@@ -92,21 +90,13 @@ const Products = ({ category, filters, sort }) => {
         </Slide>
       )}
       <div className="products-wrapper">
-        {loading ? (
-          <div className="loading-container">
-            <ClipLoader color="#36d7b7" />
-          </div>
-        ) : category ? (
-          filteredProducts.map((item) => <Product item={item} key={item.id} />)
+        {filteredProducts.length === 0 ? (
+          <Shimmer />
         ) : (
-          products
-            ?.slice(0, 8)
-            .map((item) => <Product item={item} key={item.id} />)
+          filteredProducts.map((item) => <Product item={item} key={item.id} />)
         )}
       </div>
     </div>
-
-    // </Bounce>
   );
 };
 

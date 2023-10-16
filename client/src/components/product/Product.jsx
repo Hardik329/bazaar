@@ -7,12 +7,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist, removeFromWishlist } from "../../redux/wishlistSlice";
 
 import Slide from "react-reveal/Slide";
+import { useState } from "react";
+import { ShimmerCircularImage } from "react-shimmer-effects";
 
 const Product = ({ item }) => {
   var isFav = false;
   const dispatch = useDispatch();
 
   const wishlist = useSelector((state) => state.wishlist);
+
+  const [imgLoading, setImgLoading] = useState(true);
 
   wishlist.products.forEach((product) => {
     if (product._id === item._id) isFav = true;
@@ -22,9 +26,10 @@ const Product = ({ item }) => {
     if (isFav === false) dispatch(addToWishlist(item));
     else dispatch(removeFromWishlist(item));
   };
+  
+  console.log(imgLoading);
 
   return (
-    // <Zoom>
     <Slide bottom>
       <div className="product-container">
         <div className="product-icon">
@@ -39,11 +44,16 @@ const Product = ({ item }) => {
           <div className="product-top">
             <div className="circle"></div>
             <div className="product-image">
+              
+              {imgLoading && <ShimmerCircularImage size ={250}/>}
+              
               <img
-                src={item.img}
-                alt=""
-                className="product-img"
-              />
+                  src={item.img}
+                  alt={item.title}
+                  className="product-img"
+                  style = { {display : imgLoading ? "none" : "block" }}
+                  onLoad={() => setImgLoading(false)}
+                />
             </div>
           </div>
           <div className="product-info">
