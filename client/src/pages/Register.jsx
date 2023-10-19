@@ -6,7 +6,7 @@ import "./Register.css";
 
 const Register = () => {
   const [user, setUser] = useState({});
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setUser((user) => ({ ...user, [e.target.name]: e.target.value }));
@@ -19,13 +19,13 @@ const Register = () => {
       const res = await publicRequest.post("/auth/register", user);
       if (res.data) {
         const cart = await publicRequest.post("/cart", {
-          userId: res.data._id,
+          userId: res.data.id,
           products: [],
           quantity: 0,
           total: 0,
         });
       }
-      navigate(-1)
+      navigate(-1);
     } catch (err) {
       console.log(err);
     }

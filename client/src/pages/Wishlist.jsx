@@ -4,13 +4,9 @@ import Announcement from "../components/announcement/Announcement";
 import Footer from "../components/footer/Footer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./Wishlist.css";
-import {
-  removeFromWishlist,
-  setWishlist,
-} from "../redux/wishlistSlice";
+import { removeFromWishlist, setWishlist } from "../redux/wishlistSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 
 import Zoom from "react-reveal/Zoom";
 import { makeRequest } from "../useFetch";
@@ -34,7 +30,9 @@ const Wishlist = () => {
     const fetchWishlist = async () => {
       console.log("called fetchWishlist");
       try {
-        const user = await userRequest.get("/users/currentUser/" + currentUser._id);
+        const user = await userRequest.get(
+          "/users/currentUser/" + currentUser.id
+        );
         console.log(user);
         dispatch(setWishlist(user.data.wishlist));
       } catch (error) {
@@ -44,7 +42,6 @@ const Wishlist = () => {
 
     currentUser && fetchWishlist();
   }, []);
-
 
   return (
     <div className="wishlist-container">
@@ -95,12 +92,10 @@ const Wishlist = () => {
             )}
             {wishlist.products?.map((product) => (
               <Zoom duration={500}>
-                <div
-                  className="wishlist-product"
-                >
+                <div className="wishlist-product">
                   <div
                     className="wishlist-product-detail"
-                    onClick={() => navigate("/product/" + product._id)}
+                    onClick={() => navigate("/product/" + product.id)}
                     style={{ cursor: "pointer" }}
                   >
                     <img

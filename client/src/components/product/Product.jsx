@@ -19,14 +19,14 @@ const Product = ({ item }) => {
   const [imgLoading, setImgLoading] = useState(true);
 
   wishlist.products.forEach((product) => {
-    if (product._id === item._id) isFav = true;
+    if (product.id === item.id) isFav = true;
   });
 
   const handleClick = () => {
     if (isFav === false) dispatch(addToWishlist(item));
     else dispatch(removeFromWishlist(item));
   };
-  
+
   console.log(imgLoading);
 
   return (
@@ -38,22 +38,21 @@ const Product = ({ item }) => {
           </div>
         </div>
         <Link
-          to={`/product/${item._id}`}
+          to={`/product/${item.id}`}
           style={{ textDecoration: "none", color: "black" }}
         >
           <div className="product-top">
             <div className="circle"></div>
             <div className="product-image">
-              
-              {imgLoading && <ShimmerCircularImage size ={250}/>}
-              
+              {imgLoading && <ShimmerCircularImage size={250} />}
+
               <img
-                  src={item.img}
-                  alt={item.title}
-                  className="product-img"
-                  style = { {display : imgLoading ? "none" : "block" }}
-                  onLoad={() => setImgLoading(false)}
-                />
+                src={item.img}
+                alt={item.title}
+                className="product-img"
+                style={{ display: imgLoading ? "none" : "block" }}
+                onLoad={() => setImgLoading(false)}
+              />
             </div>
           </div>
           <div className="product-info">

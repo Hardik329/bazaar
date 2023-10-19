@@ -25,8 +25,8 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
 //UPDATE
 router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
-    const updatedProduct = await Product.findByIdAndUpdate(
-      req.params.id,
+    const updatedProduct = await Product.findOneAndUpdate(
+      { id: req.params.id },
       {
         $set: req.body,
       },
@@ -41,7 +41,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
 //DELETE
 router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
-    await Product.findByIdAndDelete(req.params.id);
+    await Product.findOneAndRemove({ id: req.params.id });
     res.status(200).json("Product has been deleted...");
   } catch (err) {
     res.status(500).json(err);
@@ -51,7 +51,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 //GET PRODUCT
 router.get("/find/:id", async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findOne({ id: req.params.id });
     res.status(200).json(product);
   } catch (err) {
     res.status(500).json(err);

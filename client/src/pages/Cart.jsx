@@ -39,7 +39,6 @@ const Cart = () => {
     setStripeToken(token);
   };
 
-
   const handleClick = ([operation, product]) => {
     if (operation === "add") {
       dispatch(addToCart({ ...product, quantity: 1 }));
@@ -104,7 +103,7 @@ const Cart = () => {
                 <div className="cart-product">
                   <div
                     className="cart-product-detail"
-                    onClick={() => navigate("/product/" + product._id)}
+                    onClick={() => navigate("/product/" + product.id)}
                     style={{ cursor: "pointer" }}
                   >
                     <img

@@ -70,7 +70,7 @@ const Products = ({ category, filters, sort }) => {
     const fetchWishlist = async () => {
       try {
         const user = await userRequest.get(
-          "/users/currentUser/" + currentUser._id
+          "/users/currentUser/" + currentUser.id
         );
         console.log(user);
         dispatch(setWishlist(user.data.wishlist));

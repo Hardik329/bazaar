@@ -15,7 +15,7 @@ const cartSlice = createSlice({
 
       state.products.forEach((product) => {
         if (
-          product._id === newProduct._id &&
+          product.id === newProduct.id &&
           product.size === newProduct.size &&
           product.color === newProduct.color
         ) {
@@ -36,7 +36,7 @@ const cartSlice = createSlice({
 
       state.products.forEach((product) => {
         if (
-          product._id === newProduct._id &&
+          product.id === newProduct.id &&
           product.size === newProduct.size &&
           product.color === newProduct.color
         ) {
@@ -56,12 +56,11 @@ const cartSlice = createSlice({
     setCart: (state, action) => {
       var { products, quantity, total } = action.payload;
 
-      console.log(action.payload)
+      console.log(action.payload);
 
       state.products = products;
       state.quantity = quantity;
       state.total = total;
-
     },
   },
 });

@@ -29,7 +29,7 @@ function App() {
         cart: {
           products: cart.products.map((product) => {
             return {
-              _id: product._id,
+              id: product.id,
               quantity: product.quantity,
               color: product.color,
               size: product.size,
@@ -44,7 +44,7 @@ function App() {
   useEffect(() => {
     console.log("Wishlist: ", wishlist);
     currentUser &&
-      userRequest.put("/users/" + currentUser._id, {
+      userRequest.put("/users/" + currentUser.id, {
         wishlist: wishlist.products,
       });
   }, [wishlist]);

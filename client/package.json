@@ -8,8 +8,6 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.5",
     "@reduxjs/toolkit": "^1.9.5",
-    "@stripe/react-stripe-js": "^2.1.1",
-    "@stripe/stripe-js": "^1.54.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -23,12 +21,10 @@
     "react-router-dom": "^6.13.0",
     "react-scripts": "5.0.1",
     "react-shimmer-effects": "^1.0.3",
-    "react-spinners": "^0.13.8",
     "react-stripe-checkout": "^2.6.3",
     "react-transition-group": "^4.4.5",
     "redux-persist": "^6.0.0",
-    "stripe": "^12.10.0",
-    "swr": "^2.2.0",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

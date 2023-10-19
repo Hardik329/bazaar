@@ -20,12 +20,16 @@ const Navbar = () => {
 
   const searchRef = useRef("");
 
+  // const handleAdmin = () => {
+  //   localStorage.setItem("user", JSON.stringify(currentUser));
+  // };
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     const fetchCart = async () => {
       console.log("called fetchCart");
       try {
-        const res = await userRequest.get("/cart/find/" + currentUser._id);
+        const res = await userRequest.get("/cart/find/" + currentUser.id);
         if (!res.data) {
           console.log("Empty state");
 
@@ -41,14 +45,14 @@ const Navbar = () => {
           console.log("cart: ", cart);
 
           const promises = cart.products.map((product) =>
-            publicRequest.get("/products/find/" + product._id)
+            publicRequest.get("/products/find/" + product.id)
           );
 
           const arr = await Promise.all(promises);
           const products = arr.map((res, i) => {
-            const { _id, img, desc, title, categories, price } = res.data;
+            const { id, img, desc, title, categories, price } = res.data;
             return {
-              _id,
+              id,
               img,
               desc,
               title,
@@ -82,8 +86,11 @@ const Navbar = () => {
           <div className="nav-search-container">
             <input type="text" className="nav-input" ref={searchRef} />
             <SearchIcon
-              style={{ color: "gray", fontSize: "16px",cursor:'pointer' }}
-              onClick={() => searchRef.current.value!=="" && navigate("/products/" + searchRef.current.value)}
+              style={{ color: "gray", fontSize: "16px", cursor: "pointer" }}
+              onClick={() =>
+                searchRef.current.value !== "" &&
+                navigate("/products/" + searchRef.current.value)
+              }
             />
           </div>
         </div>
@@ -93,6 +100,11 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="nav-right">
+          {/* {currentUser?.isAdmin && (
+            <div className="admin" onClick={handleAdmin}>
+              Admin
+            </div>
+          )} */}
           {currentUser ? (
             <div className="logout-container">
               <div className="hello-text">

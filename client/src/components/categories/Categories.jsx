@@ -1,6 +1,5 @@
-// import styled from "styled-components";
+
 import { categories } from "../../data";
-// import { mobile } from "../responsive";
 import CategoryItem from "../categoryItem/CategoryItem";
 import "./Categories.css";
 import Slide from "react-reveal/Slide";

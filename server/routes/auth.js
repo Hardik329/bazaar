@@ -8,6 +8,7 @@ const router = express.Router();
 //REGISTER
 router.post("/register", async (req, res) => {
   const newUser = new User({
+    id: req.body.id,
     username: req.body.username,
     email: req.body.email,
     name: req.body.name,
@@ -18,13 +19,11 @@ router.post("/register", async (req, res) => {
     ).toString(),
   });
 
-
   try {
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   } catch (err) {
     res.status(500).json(err);
-    
   }
 });
 
@@ -46,7 +45,7 @@ router.post("/login", async (req, res) => {
 
     const accessToken = jwt.sign(
       {
-        id: user._id,
+        id: user.id,
         isAdmin: user.isAdmin,
       },
       process.env.JWT_SEC,
