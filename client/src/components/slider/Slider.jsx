@@ -7,6 +7,7 @@ import { sliderItems } from "../../data";
 import Slide from "react-reveal/Slide";
 import Fade from "react-reveal/Fade";
 import { ShimmerThumbnail } from "react-shimmer-effects";
+import { CDN_URL } from "../../utils/constants";
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -48,10 +49,10 @@ const Slider = () => {
         <KeyboardArrowLeftOutlinedIcon onClick={() => handleClick("left")} />
       </div>
       <div className="slide-wrapper" ref={ref}>
-        {sliderItems.map((slide) => (
+        {sliderItems.map((slide,i) => (
           <div className="slide" style={{ backgroundColor: slide.bg }}>
             <div className="imgContainer">
-              <img src={slide.img} style={{display:"none"}} alt="" onLoad = {(e) => handleLoad(e)} />
+              <img src={CDN_URL + "slider/" + (i+1) + ".jpg"} style={{display:"none"}} alt="" onLoad = {(e) => handleLoad(e)} />
             </div>
             <div className="infoContainer">
               <Fade delay={50} appear opposite left={direct==='left'} right={direct==='right'} when={sliderItems[slideIndex]===slide}>

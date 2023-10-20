@@ -15,6 +15,7 @@ import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom";
 
 import { logo } from "../data";
+import { CDN_URL } from "../utils/constants";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -108,7 +109,7 @@ const Cart = () => {
                   >
                     <img
                       className="cart-image"
-                      src={product.img}
+                      src={CDN_URL + "products/" + product.image_id + ".jpg"}
                       alt={product.title}
                     />
                     <div className="cart-details">

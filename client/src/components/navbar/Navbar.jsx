@@ -50,10 +50,10 @@ const Navbar = () => {
 
           const arr = await Promise.all(promises);
           const products = arr.map((res, i) => {
-            const { id, img, desc, title, categories, price } = res.data;
+            const { id, image_id, desc, title, categories, price } = res.data;
             return {
               id,
-              img,
+              image_id,
               desc,
               title,
               categories,

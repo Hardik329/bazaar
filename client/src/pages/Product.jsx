@@ -12,6 +12,7 @@ import { publicRequest } from "../useFetch";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 import { ShimmerText, ShimmerThumbnail, ShimmerTitle } from "react-shimmer-effects";
+import { CDN_URL } from "../utils/constants";
 
 const Product = () => {
   useEffect(() => {
@@ -60,7 +61,7 @@ const Product = () => {
       <div className="p-wrapper">
         <div className="p-img-container">
           {imgLoading && <ShimmerThumbnail height={500}/>}
-          <img className="p-image" src={product?.img} alt={product?.img} style = {{display: imgLoading ? "none": "block"}} onLoad = {()=> setImgLoading(false)}/>
+          <img className="p-image" src={CDN_URL + "/products/" + product?.image_id} alt={product?.title} style = {{display: imgLoading ? "none": "block"}} onLoad = {()=> setImgLoading(false)}/>
         </div>
         <div className="p-info-container">
           <h1 className="p-title">{loading ? <ShimmerTitle line={1}/> : product?.title}</h1>

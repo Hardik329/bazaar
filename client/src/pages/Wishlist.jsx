@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 import Zoom from "react-reveal/Zoom";
 import { makeRequest } from "../useFetch";
+import { CDN_URL } from "../utils/constants";
 
 const Wishlist = () => {
   const cart = useSelector((state) => state.cart);
@@ -100,7 +101,7 @@ const Wishlist = () => {
                   >
                     <img
                       className="wishlist-image"
-                      src={product.img}
+                      src={CDN_URL + "products/" + product.image_id + ".jpg"}
                       alt={product.title}
                     />
                     <div className="wishlist-details">
