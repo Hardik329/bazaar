@@ -16,6 +16,12 @@
   padding: 20px;
   padding: 1.25em;
 }
+.footer-list-container{
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 4rem;
+
+}
 
 .footer-right {
   flex: 1;
@@ -53,14 +59,14 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  display: flex;
+  /* display: flex; */
   gap: 4em;
   /* flex-wrap: wrap; */
 }
 
 .footer-list-left {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
 }
 
 .footer-list-item {

@@ -12,7 +12,7 @@ const Newsletter = () => {
       </div>
       <div className="news-input-container">
         <input placeholder="your email" className="news-input" />
-          <button className='news-button'>
+          <button name='Send Newsletter' className='news-button'>
             <SendIcon />
           </button>
       </div>

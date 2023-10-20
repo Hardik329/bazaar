@@ -84,9 +84,10 @@ const Navbar = () => {
         <div className="nav-left">
           <div className="nav-lang">EN</div>
           <div className="nav-search-container">
-            <input type="text" className="nav-input" ref={searchRef} />
+            <input type="text" id="search-input" className="nav-input" ref={searchRef} />
+            <label for="search-input" hidden={true}>Search</label>
             <SearchIcon
-              style={{ color: "gray", fontSize: "16px", cursor: "pointer" }}
+              style={{ color: "black", fontSize: "16px", cursor: "pointer" }}
               onClick={() =>
                 searchRef.current.value !== "" &&
                 navigate("/products/" + searchRef.current.value)
@@ -126,7 +127,7 @@ const Navbar = () => {
               </Link>
             </>
           )}
-          <Link to="/cart" style={{ textDecoration: "none" }}>
+          <Link to="/cart" style={{ textDecoration: "none" }} aria-label="Cart">
             <div className="nav-menuItem">
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlinedIcon />

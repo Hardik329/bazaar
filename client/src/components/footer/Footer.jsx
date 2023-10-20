@@ -18,7 +18,10 @@ const Footer = () => {
       <div className="footer-left">
         <h1>BAZAAR</h1>
         <div className="footer-desc">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam doloremque placeat labore exercitationem sequi cum, nesciunt voluptates, iusto explicabo, magni beatae necessitatibus voluptate eaque quidem eius dolorem modi aut ab!
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam
+          doloremque placeat labore exercitationem sequi cum, nesciunt
+          voluptates, iusto explicabo, magni beatae necessitatibus voluptate
+          eaque quidem eius dolorem modi aut ab!
         </div>
         <div className="social-container">
           <div className="social-icon" style={{ color: "#3B5999" }}>
@@ -37,69 +40,73 @@ const Footer = () => {
       </div>
       <div className="footer-center">
         <div className="footer-title">Useful Links</div>
-        <ul className="footer-list">
+        <div className="footer-list-container">
           <div className="footer-list-left">
-            <li className="footer-list-item">
-              <Link to="/" style={{ color: "black", textDecoration: "none" }}>
-                Home
-              </Link>
-            </li>
-            <li className="footer-list-item">
-              <Link
-                to="/cart"
-                style={{ color: "black", textDecoration: "none" }}
-              >
-                Cart
-              </Link>
-            </li>
-            <li className="footer-list-item">
-              <Link
-                to="/products/men"
-                style={{ color: "black", textDecoration: "none" }}
-              >
-                Men Fashion
-              </Link>
-            </li>
-            <li className="footer-list-item">
-              <Link
-                to="/products/women"
-                style={{ color: "black", textDecoration: "none" }}
-              >
-                Women Fashion
-              </Link>
-            </li>
-            <li className="footer-list-item">
-              <Link
-                to="/products/accessories"
-                style={{ color: "black", textDecoration: "none" }}
-              >
-                Accessories
-              </Link>
-            </li>
+            <menu className="footer-list">
+              <li className="footer-list-item">
+                <Link to="/" style={{ color: "black", textDecoration: "none" }}>
+                  Home
+                </Link>
+              </li>
+              <li className="footer-list-item">
+                <Link
+                  to="/cart"
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  Cart
+                </Link>
+              </li>
+              <li className="footer-list-item">
+                <Link
+                  to="/products/men"
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  Men Fashion
+                </Link>
+              </li>
+              <li className="footer-list-item">
+                <Link
+                  to="/products/women"
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  Women Fashion
+                </Link>
+              </li>
+              <li className="footer-list-item">
+                <Link
+                  to="/products/accessories"
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  Accessories
+                </Link>
+              </li>
+            </menu>
           </div>
           <div className="footer-list-right">
-            <li className="footer-list-item">
-              <Link to="/" style={{ color: "black", textDecoration: "none" }}>
-                My Account
-              </Link>
-            </li>
-            <li className="footer-list-item">
-              <Link to="/" style={{ color: "black", textDecoration: "none" }}>
-                Order Tracking
-              </Link>
-            </li>
-            <li className="footer-list-item">
-              <Link to="/" style={{ color: "black", textDecoration: "none" }}>
-                Wishlist
-              </Link>
-            </li>
-            <li className="footer-list-item">
-              <Link to="/" style={{ color: "black", textDecoration: "none" }}>
-                Terms and Conditions
-              </Link>
-            </li>
+            <menu className="footer-list">
+              <li className="footer-list-item">
+                <Link to="/" style={{ color: "black", textDecoration: "none" }}>
+                  My Account
+                </Link>
+              </li>
+              <li className="footer-list-item">
+                <Link to="/" style={{ color: "black", textDecoration: "none" }}>
+                  Order Tracking
+                </Link>
+              </li>
+              <li className="footer-list-item">
+                <Link to="/" style={{ color: "black", textDecoration: "none" }}>
+                  Wishlist
+                </Link>
+              </li>
+              <li className="footer-list-item">
+                <Link to="/" style={{ color: "black", textDecoration: "none" }}>
+                  Terms and Conditions
+                </Link>
+              </li>
+            </menu>
           </div>
-        </ul>
+        </div>
       </div>
       <div className="footer-right">
         <div className="footer-title">Contact</div>
