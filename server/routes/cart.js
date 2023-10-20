@@ -33,7 +33,6 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       },
       { new: true }
     );
-    // console.log(updatedCart);
     return res.status(200).json(updatedCart);
   } catch (err) {
     return res.status(500).json(err);

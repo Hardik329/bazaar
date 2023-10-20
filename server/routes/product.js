@@ -1,4 +1,5 @@
 import Product from "../models/Product.js";
+import cloudinary from "../utils/cloudinary.js";
 
 import {
   verifyToken,
@@ -12,7 +13,24 @@ const router = express.Router();
 //CREATE
 
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
-  const newProduct = new Product(req.body);
+  const { file, ...others } = req.body;
+  
+  const newProduct = new Product(others);
+  if (file !== "DEFAULT_IMAGE") {
+    try {
+      cloudinary.uploader.upload(
+        req.body.file,
+        { public_id: others.image_id, folder: "products" },
+        function (error, result) {
+          if (error) {
+            console.log(error);
+          } else console.log(result);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   try {
     const savedProduct = await newProduct.save();

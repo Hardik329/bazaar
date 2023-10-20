@@ -1,11 +1,12 @@
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
 export const verifyToken = (req, res, next) => {
+  // console.log(req.body);
   const authHeader = req.headers.token;
   if (authHeader) {
     const token = authHeader.split(" ")[1];
-    console.log("token: ",token)
-    jwt.verify(token, process.env.JWT_SEC, (err, user) => {      
+    // console.log("token: ", token);
+    jwt.verify(token, process.env.JWT_SEC, (err, user) => {
       if (err) res.status(403).json("Token is not valid!");
       req.user = user;
       // console.log("req.user: ",user);
@@ -37,4 +38,3 @@ export const verifyTokenAndAdmin = (req, res, next) => {
     }
   });
 };
-
