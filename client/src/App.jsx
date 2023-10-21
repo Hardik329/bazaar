@@ -22,7 +22,7 @@ function App() {
   const { userRequest } = makeRequest(currentUser?.accessToken);
 
   useEffect(() => {
-    console.log("Cart: ", cart);
+    // console.log("Cart: ", cart);
     currentUser &&
       updateCart({
         user: currentUser,
@@ -42,7 +42,7 @@ function App() {
   }, [cart]);
 
   useEffect(() => {
-    console.log("Wishlist: ", wishlist);
+    // console.log("Wishlist: ", wishlist);
     currentUser &&
       userRequest.put("/users/" + currentUser.id, {
         wishlist: wishlist.products,

@@ -29,7 +29,7 @@ const Register = () => {
       }
       navigate(-1);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

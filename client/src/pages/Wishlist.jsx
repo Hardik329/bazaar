@@ -29,15 +29,15 @@ const Wishlist = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     const fetchWishlist = async () => {
-      console.log("called fetchWishlist");
+      // console.log("called fetchWishlist");
       try {
         const user = await userRequest.get(
           "/users/currentUser/" + currentUser.id
         );
-        console.log(user);
+        // console.log(user);
         dispatch(setWishlist(user.data.wishlist));
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
 
@@ -92,7 +92,7 @@ const Wishlist = () => {
               </>
             )}
             {wishlist.products?.map((product) => (
-              <Zoom duration={500}>
+              <Zoom duration={500} key={product.id}>
                 <div className="wishlist-product">
                   <div
                     className="wishlist-product-detail"

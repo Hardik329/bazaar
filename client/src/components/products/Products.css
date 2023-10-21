@@ -9,8 +9,8 @@
 .products-wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 25px;
-  justify-content: space-around;  
+  gap: 30px;
+  /* justify-content: space-around;   */
 }
 
 .loading-container{

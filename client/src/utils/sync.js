@@ -15,8 +15,8 @@ export const updateCart = async ({ user, cart }) => {
       }
     );
 
-    console.log(res);
+    // console.log(res);
   } catch (error) {
-    console.log("Error in updating cart: ", error);
+    // console.log("Error in updating cart: ", error);
   }
 };

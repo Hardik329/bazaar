@@ -56,7 +56,7 @@ const cartSlice = createSlice({
     setCart: (state, action) => {
       var { products, quantity, total } = action.payload;
 
-      console.log(action.payload);
+      // console.log(action.payload);
 
       state.products = products;
       state.quantity = quantity;

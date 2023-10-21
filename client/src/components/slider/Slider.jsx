@@ -15,7 +15,7 @@ const Slider = () => {
 
   const [direct, setDirect] = useState("");
 
-  const [show,setShow] = useState(false)
+  const [show, setShow] = useState(false);
 
   const ref = useRef(0);
 
@@ -25,10 +25,9 @@ const Slider = () => {
     ref.current.style.transform = `translateX(${-slideIndex * 100}vw)`;
   }, [slideIndex]);
 
-
   const handleClick = (direction) => {
     setDirect(direction);
-    setShow(true)
+    setShow(true);
 
     direction === "left"
       ? setSlideIndex((slideIndex) =>
@@ -39,23 +38,31 @@ const Slider = () => {
         );
   };
 
-  const handleLoad = (e)=>{
-    e.target.style.display="block";
-  }
-
   return (
     <div className="slider-container">
       <div className="arrow arrow-left">
         <KeyboardArrowLeftOutlinedIcon onClick={() => handleClick("left")} />
       </div>
       <div className="slide-wrapper" ref={ref}>
-        {sliderItems.map((slide,i) => (
-          <div className="slide" style={{ backgroundColor: slide.bg }}>
+        {sliderItems.map((slide, i) => (
+          <div className="slide" style={{ backgroundColor: slide.bg }} key={slide.id}>
             <div className="imgContainer">
-              <img src={CDN_URL + "slider/" + (i+1) + ".jpg"} fetchpriority="high" style={{display:"none"}} alt="" onLoad = {(e) => handleLoad(e)} />
+              <img
+                loading={i === 0 ? "eager" : "lazy"}
+                src={CDN_URL + "slider/" + (i + 1) + ".png"}
+                fetchpriority="high"
+                alt=""
+              />
             </div>
             <div className="infoContainer">
-              <Fade delay={50} appear opposite left={direct==='left'} right={direct==='right'} when={sliderItems[slideIndex]===slide}>
+              <Fade
+                delay={50}
+                appear
+                opposite
+                left={direct === "left"}
+                right={direct === "right"}
+                when={sliderItems[slideIndex] === slide}
+              >
                 <h1 className="slider-title">{slide.title}</h1>
               </Fade>
               <p className="slider-desc">{slide.desc}</p>

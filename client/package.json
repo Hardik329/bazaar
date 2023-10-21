@@ -46,8 +46,8 @@
       "not op_mini all"
     ],
     "development": [
-      "last 2 chrome versions",
-      "last 2 firefox versions"
+      "last 5 chrome versions",
+      "last 5 firefox versions"
     ]
   }
 }

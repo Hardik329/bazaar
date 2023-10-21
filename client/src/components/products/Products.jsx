@@ -27,9 +27,9 @@ const Products = ({ category, filters, sort }) => {
           category ? `/products?category=${category}` : "/products"
         );
         await setProducts(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
       setLoading(false);
     };
@@ -73,10 +73,10 @@ const Products = ({ category, filters, sort }) => {
         const user = await userRequest.get(
           "/users/currentUser/" + currentUser.id
         );
-        console.log(user);
+        // console.log(user);
         dispatch(setWishlist(user.data.wishlist));
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
 
@@ -93,13 +93,11 @@ const Products = ({ category, filters, sort }) => {
       <div className="products-wrapper">
         {loading ? (
           <Shimmer />
-        ) : 
-        (filteredProducts.length === 0 ? (
+        ) : filteredProducts.length === 0 ? (
           <h1>No products found!</h1>
         ) : (
           filteredProducts.map((item) => <Product item={item} key={item.id} />)
-        ))
-        }
+        )}
       </div>
     </div>
   );

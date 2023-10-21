@@ -9,8 +9,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 import { Link } from "react-router-dom";
-import Slide from "react-reveal/Slide";
-import Fade from "react-reveal/Fade";
+import { CDN_URL } from "../../utils/constants";
 
 const Footer = () => {
   return (
@@ -120,7 +119,9 @@ const Footer = () => {
           <EmailOutlinedIcon style={{ marginRight: "10px" }} /> hardik@gmail.com
         </div>
         <img
-          src="https://i.ibb.co/Qfvn4z6/payment.png"
+          src={CDN_URL + "logos/paymentLogo.png"}
+          loading="lazy"
+          fetchpriority="low"
           alt=""
           className="payment"
         />

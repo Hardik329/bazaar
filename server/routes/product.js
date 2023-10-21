@@ -24,7 +24,7 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
         function (error, result) {
           if (error) {
             console.log(error);
-          } else console.log(result);
+          } 
         }
       );
     } catch (error) {
@@ -94,7 +94,7 @@ router.get("/", async (req, res) => {
     } else {
       products = await Product.find();
     }
-    // console.log(products);
+    //console.log(products);
 
     res.status(200).json(products);
   } catch (err) {

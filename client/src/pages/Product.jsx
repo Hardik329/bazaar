@@ -11,7 +11,11 @@ import "./Product.css";
 import { publicRequest } from "../useFetch";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
-import { ShimmerText, ShimmerThumbnail, ShimmerTitle } from "react-shimmer-effects";
+import {
+  ShimmerText,
+  ShimmerThumbnail,
+  ShimmerTitle,
+} from "react-shimmer-effects";
 import { CDN_URL } from "../utils/constants";
 
 const Product = () => {
@@ -37,7 +41,7 @@ const Product = () => {
         setProduct(res.data);
         setLoading(false);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     getProduct();
@@ -60,62 +64,76 @@ const Product = () => {
       <Announcement />
       <div className="p-wrapper">
         <div className="p-img-container">
-          {imgLoading && <ShimmerThumbnail height={500}/>}
-          <img className="p-image" src={CDN_URL + "/products/" + product?.image_id} alt={product?.title} style = {{display: imgLoading ? "none": "block"}} onLoad = {()=> setImgLoading(false)}/>
+          {imgLoading && <ShimmerThumbnail height={500} />}
+          <img
+            className="p-image"
+            src={CDN_URL + "/products/" + product?.image_id}
+            alt={product?.title}
+            style={{ display: imgLoading ? "none" : "block" }}
+            onLoad={() => setImgLoading(false)}
+          />
         </div>
         <div className="p-info-container">
-          <h1 className="p-title">{loading ? <ShimmerTitle line={1}/> : product?.title}</h1>
-          <p className="p-desc">{loading ? <ShimmerText line={5}/> : product?.desc}</p>
+          <h1 className="p-title">
+            {loading ? <ShimmerTitle line={1} /> : product?.title}
+          </h1>
+          <p className="p-desc">
+            {loading ? <ShimmerText line={5} /> : product?.desc}
+          </p>
 
-          {!loading &&
-          <span className="p-price">
-            
-            <span style={{ fontWeight: "100", fontStyle: "Roboto Mono" }}>
-              ₹
-            </span>{" "}
-            {Number(product?.price).toLocaleString()}
-          </span>}
-          {!loading && <div className="p-filter-container">
-            {product?.color.length > 0 && (
-              <div className="p-filter">
-                <span className="p-filter-title">Color</span>
-                {product?.color?.map((c) => (
-                  <div
-                    className="p-filter-color"
-                    style={{ backgroundColor: c }}
-                    onClick={() => setColor(c)}
-                  />
-                ))}
-              </div>
-            )}
-            {product?.size.length > 0 && (
-              <div className="p-filter">
-                <span className="p-filter-title">Size</span>
-                <select
-                  className="p-filter-size"
-                  onChange={(e) => setSize(e.target.value)}
-                >
-                  {product?.size?.map((s) => (
-                    <option key={s}>{s}</option>
+          {!loading && (
+            <span className="p-price">
+              <span style={{ fontWeight: "100", fontStyle: "Roboto Mono" }}>
+                ₹
+              </span>{" "}
+              {Number(product?.price).toLocaleString()}
+            </span>
+          )}
+          {!loading && (
+            <div className="p-filter-container">
+              {product?.color.length > 0 && (
+                <div className="p-filter">
+                  <span className="p-filter-title">Color</span>
+                  {product?.color?.map((c) => (
+                    <div
+                      className="p-filter-color"
+                      key={c}
+                      style={{ backgroundColor: c }}
+                      onClick={() => setColor(c)}
+                    />
                   ))}
-                </select>
-              </div>
-            )}
-          </div>
-}
-          {!loading && <div className="p-add-container">
-            <div className="p-amount-container">
-              <RemoveIcon onClick={() => handleQuantity("dec")} />
-              <div className="p-amount">{quantity}</div>
-              <AddIcon onClick={() => handleQuantity("inc")} />
+                </div>
+              )}
+              {product?.size.length > 0 && (
+                <div className="p-filter">
+                  <span className="p-filter-title">Size</span>
+                  <select
+                    className="p-filter-size"
+                    onChange={(e) => setSize(e.target.value)}
+                  >
+                    {product?.size?.map((s) => (
+                      <option key={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
-            <button className="p-button" onClick={handleClick}>
-              ADD TO CART
-            </button>
-          </div>}
+          )}
+          {!loading && (
+            <div className="p-add-container">
+              <div className="p-amount-container">
+                <RemoveIcon onClick={() => handleQuantity("dec")} />
+                <div className="p-amount">{quantity}</div>
+                <AddIcon onClick={() => handleQuantity("inc")} />
+              </div>
+              <button className="p-button" onClick={handleClick}>
+                ADD TO CART
+              </button>
+            </div>
+          )}
         </div>
       </div>
-                  
+
       <Newsletter />
       <Footer />
     </div>

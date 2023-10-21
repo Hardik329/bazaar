@@ -20,15 +20,14 @@ const Navbar = () => {
 
   const searchRef = useRef("");
 
-
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     const fetchCart = async () => {
-      console.log("called fetchCart");
+      // console.log("called fetchCart");
       try {
         const res = await userRequest.get("/cart/find/" + currentUser.id);
         if (!res.data) {
-          console.log("Empty state");
+          // console.log("Empty state");
 
           const state = {
             products: [],
@@ -39,7 +38,7 @@ const Navbar = () => {
           dispatch(setCart(state));
         } else {
           const cart = res.data;
-          console.log("cart: ", cart);
+          // console.log("cart: ", cart);
 
           const promises = cart.products.map((product) =>
             publicRequest.get("/products/find/" + product.id)
@@ -68,7 +67,7 @@ const Navbar = () => {
           dispatch(setCart(state));
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
 
@@ -81,7 +80,13 @@ const Navbar = () => {
         <div className="nav-left">
           <div className="nav-lang">EN</div>
           <div className="nav-search-container">
-            <input type="text" id="search-input" aria-label="Search" className="nav-input" ref={searchRef} />
+            <input
+              type="text"
+              id="search-input"
+              aria-label="Search"
+              className="nav-input"
+              ref={searchRef}
+            />
             <SearchIcon
               style={{ color: "black", fontSize: "16px", cursor: "pointer" }}
               onClick={() =>

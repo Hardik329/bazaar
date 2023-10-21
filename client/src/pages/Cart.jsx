@@ -5,16 +5,14 @@ import Footer from "../components/footer/Footer";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import "./Cart.css";
-import { addToCart, removeFromCart, setCart } from "../redux/cartSlice";
+import { addToCart, removeFromCart } from "../redux/cartSlice";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { publicRequest } from "../useFetch";
 import { makeRequest } from "../useFetch";
 import StripeCheckout from "react-stripe-checkout";
 import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom";
 
-import { logo } from "../data";
 import { CDN_URL } from "../utils/constants";
 
 const Cart = () => {
@@ -101,7 +99,7 @@ const Cart = () => {
                 </>
               )}
               {cart.products?.map((product) => (
-                <div className="cart-product">
+                <div className="cart-product" key={product.id}>
                   <div
                     className="cart-product-detail"
                     onClick={() => navigate("/product/" + product.id)}
@@ -186,7 +184,7 @@ const Cart = () => {
                 </div>
                 <StripeCheckout
                   name="BAZAAR"
-                  image={logo}
+                  image={CDN_URL + "/logos/cartLogo.png"}
                   billingAddress
                   shippingAddress
                   description={`Your total is ₹${cart.total}`}
