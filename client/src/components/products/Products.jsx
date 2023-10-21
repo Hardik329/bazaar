@@ -17,11 +17,11 @@ const Products = ({ category, filters, sort }) => {
 
   const { userRequest } = makeRequest(currentUser?.accessToken);
 
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getProducts = async () => {
-      // setLoading(true);
+      setLoading(true);
       try {
         const res = await publicRequest.get(
           category ? `/products?category=${category}` : "/products"
@@ -31,11 +31,11 @@ const Products = ({ category, filters, sort }) => {
       } catch (err) {
         console.log(err);
       }
-      // setLoading(false);
+      setLoading(false);
     };
     getProducts();
   }, [category]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(null);
 
   useEffect(() => {
     category
@@ -91,13 +91,15 @@ const Products = ({ category, filters, sort }) => {
         </Slide>
       )}
       <div className="products-wrapper">
-        {!filteredProducts ? (
+        {loading ? (
           <Shimmer />
-        ) : filteredProducts.length === 0 ? (
+        ) : 
+        (filteredProducts.length === 0 ? (
           <h1>No products found!</h1>
         ) : (
           filteredProducts.map((item) => <Product item={item} key={item.id} />)
-        )}
+        ))
+        }
       </div>
     </div>
   );
