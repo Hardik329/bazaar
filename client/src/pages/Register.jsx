@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { publicRequest } from "../useFetch";
 import "./Register.css";
+import { v4 as uuidv4 } from "uuid";
 
 const Register = () => {
   const [user, setUser] = useState({});
@@ -14,6 +15,7 @@ const Register = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    user.id = uuidv4();
 
     try {
       const res = await publicRequest.post("/auth/register", user);

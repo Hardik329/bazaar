@@ -52,7 +52,7 @@ const Slider = () => {
         {sliderItems.map((slide,i) => (
           <div className="slide" style={{ backgroundColor: slide.bg }}>
             <div className="imgContainer">
-              <img src={CDN_URL + "slider/" + (i+1) + ".jpg"} style={{display:"none"}} alt="" onLoad = {(e) => handleLoad(e)} />
+              <img src={CDN_URL + "slider/" + (i+1) + ".jpg"} fetchpriority="high" style={{display:"none"}} alt="" onLoad = {(e) => handleLoad(e)} />
             </div>
             <div className="infoContainer">
               <Fade delay={50} appear opposite left={direct==='left'} right={direct==='right'} when={sliderItems[slideIndex]===slide}>

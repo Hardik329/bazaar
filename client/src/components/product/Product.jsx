@@ -9,7 +9,7 @@ import { addToWishlist, removeFromWishlist } from "../../redux/wishlistSlice";
 import Slide from "react-reveal/Slide";
 import { useState } from "react";
 import { ShimmerCircularImage } from "react-shimmer-effects";
-import {CDN_URL} from "../../utils/constants.js"
+import { CDN_URL } from "../../utils/constants.js";
 
 const Product = ({ item }) => {
   var isFav = false;
@@ -51,7 +51,7 @@ const Product = ({ item }) => {
                 src={CDN_URL + "products/" + item.image_id + ".jpg"}
                 alt={item.title}
                 className="product-img"
-                style={{ display: imgLoading ? "none" : "block" }}
+                style={{ display: imgLoading ? "none" : "block",}}
                 onLoad={() => setImgLoading(false)}
               />
             </div>

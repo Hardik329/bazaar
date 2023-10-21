@@ -20,9 +20,6 @@ const Navbar = () => {
 
   const searchRef = useRef("");
 
-  // const handleAdmin = () => {
-  //   localStorage.setItem("user", JSON.stringify(currentUser));
-  // };
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -84,8 +81,7 @@ const Navbar = () => {
         <div className="nav-left">
           <div className="nav-lang">EN</div>
           <div className="nav-search-container">
-            <input type="text" id="search-input" className="nav-input" ref={searchRef} />
-            <label for="search-input" hidden={true}>Search</label>
+            <input type="text" id="search-input" aria-label="Search" className="nav-input" ref={searchRef} />
             <SearchIcon
               style={{ color: "black", fontSize: "16px", cursor: "pointer" }}
               onClick={() =>

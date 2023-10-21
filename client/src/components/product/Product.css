@@ -74,6 +74,8 @@
 
 .product-img{
   margin: auto;
+  height: 190px;
+  width: auto;
   transition: all 0.5s ease;
 
 }

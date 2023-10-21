@@ -1,13 +1,12 @@
 .catItem-container {
   flex: 1;
   margin: 3px;
-  height: 70vh;
+  /* height: 70vh; */
   position: relative;
   transition: all 1s;
   border-radius: 10px;
   overflow: hidden;
   
-
 }
 
 
@@ -19,9 +18,11 @@
   background-color: black;
   
 }
+
 .catItem-container:hover .catItem-button{
   opacity: 1;
 }
+
 .catItem-container:hover .catItem-title{
   font-size: 35px;
 }
@@ -30,8 +31,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* object-fit: contain; */
   /* object-position: 70% 0%; */
-
 
 }
 

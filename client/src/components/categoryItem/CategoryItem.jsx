@@ -8,7 +8,7 @@ const CategoryItem = ({ item }) => {
     <Zoom>
       <div className="catItem-container">
         <Link to={`/products/${item.cat}`}>
-          <img src={CDN_URL + "/categories/" + item.cat} className="catItem-image" alt={item.cat}/>
+          <img src={CDN_URL + "/categories/" + item.cat} className="catItem-image" loading="eager" alt={item.cat} fetchpriority="high"  />
 
           <div className="catItem-info">
             <div className="catItem-title" style={item.style}>{item.title}</div>

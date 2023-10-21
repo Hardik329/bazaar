@@ -12,7 +12,7 @@ const Newsletter = () => {
       </div>
       <div className="news-input-container">
         <input placeholder="your email" className="news-input" />
-          <button name='Send Newsletter' className='news-button'>
+          <button aria-label='Send Newsletter' className='news-button'>
             <SendIcon />
           </button>
       </div>

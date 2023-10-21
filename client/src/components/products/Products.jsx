@@ -27,6 +27,7 @@ const Products = ({ category, filters, sort }) => {
           category ? `/products?category=${category}` : "/products"
         );
         await setProducts(res.data);
+        console.log(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -90,8 +91,10 @@ const Products = ({ category, filters, sort }) => {
         </Slide>
       )}
       <div className="products-wrapper">
-        {filteredProducts.length === 0 ? (
+        {!filteredProducts ? (
           <Shimmer />
+        ) : filteredProducts.length === 0 ? (
+          <h1>No products found!</h1>
         ) : (
           filteredProducts.map((item) => <Product item={item} key={item.id} />)
         )}
