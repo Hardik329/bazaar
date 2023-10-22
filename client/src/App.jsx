@@ -22,7 +22,7 @@ function App() {
   const { userRequest } = makeRequest(currentUser?.accessToken);
 
   useEffect(() => {
-    // console.log("Cart: ", cart);
+    console.log("Cart: ", cart);
     currentUser &&
       updateCart({
         user: currentUser,
