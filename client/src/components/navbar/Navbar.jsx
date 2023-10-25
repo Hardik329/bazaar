@@ -72,7 +72,7 @@ const Navbar = () => {
     };
 
     currentUser && fetchCart();
-  }, []);
+  }, [currentUser?.id]);
 
   return (
     <div className="nav-container">
