@@ -66,10 +66,13 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-//GET PRODUCT
-router.get("/find/:id", async (req, res) => {
+//GET PRODUCTS
+router.get("/find/:queryString", async (req, res) => {
+
+  const arr = req.params.queryString.split(";");
   try {
-    const product = await Product.findOne({ id: req.params.id });
+    // const product = await Product.findOne({ id: req.params.id });
+    const product = await Product.find({ id: {$in : arr} });
     res.status(200).json(product);
   } catch (err) {
     res.status(500).json(err);

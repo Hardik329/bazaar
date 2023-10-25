@@ -21,7 +21,7 @@ export const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
      // console.log("id in url: ",req.params.id);
      // console.log("id logged in: ",req.user.id)
-    if (req.user.id === req.params.id || req.user.isAdmin) {
+    if (req.user?.id === req.params.id || req.user.isAdmin) {
       next();
     } else {
       res.status(403).json("You are not authorized!");

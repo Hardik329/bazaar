@@ -23,11 +23,12 @@ const Navbar = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     const fetchCart = async () => {
-      // console.log("called fetchCart");
+      console.log("called fetchCart");
       try {
         const res = await userRequest.get("/cart/find/" + currentUser.id);
+        const cart = res?.data;
         if (!res.data) {
-          // console.log("Empty state");
+          console.log("Empty state");
 
           const state = {
             products: [],
@@ -37,16 +38,19 @@ const Navbar = () => {
 
           dispatch(setCart(state));
         } else {
-          const cart = res.data;
-          // console.log("cart: ", cart);
+          console.log("cart: ", cart);
 
-          const promises = cart.products.map((product) =>
-            publicRequest.get("/products/find/" + product.id)
-          );
+          const queryString = cart.products
+            .map((product) => product.id)
+            .join(";");
+          const res = await publicRequest.get("/products/find/" + queryString);
+          console.log(res);
 
-          const arr = await Promise.all(promises);
-          const products = arr.map((res, i) => {
-            const { id, image_id, desc, title, categories, price } = res.data;
+          const arr = res.data;
+          console.log(arr);
+
+          const products = arr.map((product, i) => {
+            const { id, image_id, desc, title, categories, price } = product;
             return {
               id,
               image_id,
@@ -67,10 +71,11 @@ const Navbar = () => {
           dispatch(setCart(state));
         }
       } catch (error) {
-        // console.log(error);
+        console.log(error);
       }
     };
 
+    console.log(currentUser);
     currentUser && fetchCart();
   }, [currentUser?.id]);
 

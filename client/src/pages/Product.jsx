@@ -37,8 +37,9 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await publicRequest.get("/products/find/" + id);
-        setProduct(res.data);
+        const res = await publicRequest.get("/products/find/" + id); // returns an array of requested products
+        setProduct(res.data[0]);
+        // console.log(res.data[0])
         setLoading(false);
       } catch (err) {
         // console.log(err);
@@ -67,7 +68,7 @@ const Product = () => {
           {imgLoading && <ShimmerThumbnail height={500} />}
           <img
             className="p-image"
-            src={CDN_URL + "/products/" + product?.image_id}
+            src={CDN_URL + "products/" + product?.image_id}
             alt={product?.title}
             style={{ display: imgLoading ? "none" : "block" }}
             onLoad={() => setImgLoading(false)}
