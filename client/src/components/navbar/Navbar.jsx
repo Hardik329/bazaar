@@ -23,11 +23,11 @@ const Navbar = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     const fetchCart = async () => {
-      // console.log("called fetchCart");
+      console.log("called fetchCart");
       try {
         const res = await userRequest.get("/cart/find/" + currentUser.id);
         if (!res.data) {
-          // console.log("Empty state");
+          console.log("Empty state");
 
           const state = {
             products: [],
@@ -38,15 +38,22 @@ const Navbar = () => {
           dispatch(setCart(state));
         } else {
           const cart = res.data;
-          // console.log("cart: ", cart);
+          console.log("cart: ", cart);
 
-          const promises = cart.products.map((product) =>
-            publicRequest.get("/products/find/" + product.id)
-          );
+          const queryString = cart.products.map(product=>product.id).join(";");
 
-          const arr = await Promise.all(promises);
-          const products = arr.map((res, i) => {
-            const { id, image_id, desc, title, categories, price } = res.data;
+          // const promises = cart.products.map((product) =>
+          //   publicRequest.get("/products/find/" + product.id)
+          // );
+
+          // const arr = await Promise.all(promises);
+          const res = await publicRequest.get("/products/find/" + queryString);
+
+          const arr = res.data;
+          console.log(arr);
+
+          const products = arr.map((product, i) => {
+            const { id, image_id, desc, title, categories, price } = product;
             return {
               id,
               image_id,
