@@ -26,6 +26,7 @@ const Navbar = () => {
       console.log("called fetchCart");
       try {
         const res = await userRequest.get("/cart/find/" + currentUser.id);
+        const cart = res?.data;
         if (!res.data) {
           console.log("Empty state");
 
@@ -37,17 +38,13 @@ const Navbar = () => {
 
           dispatch(setCart(state));
         } else {
-          const cart = res.data;
           console.log("cart: ", cart);
 
-          const queryString = cart.products.map(product=>product.id).join(";");
-
-          // const promises = cart.products.map((product) =>
-          //   publicRequest.get("/products/find/" + product.id)
-          // );
-
-          // const arr = await Promise.all(promises);
+          const queryString = cart.products
+            .map((product) => product.id)
+            .join(";");
           const res = await publicRequest.get("/products/find/" + queryString);
+          console.log(res);
 
           const arr = res.data;
           console.log(arr);
@@ -74,12 +71,13 @@ const Navbar = () => {
           dispatch(setCart(state));
         }
       } catch (error) {
-        // console.log(error);
+        console.log(error);
       }
     };
 
+    console.log(currentUser);
     currentUser && fetchCart();
-  }, []);
+  }, [currentUser?.id]);
 
   return (
     <div className="nav-container">
