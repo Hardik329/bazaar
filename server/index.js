@@ -31,7 +31,7 @@ dotenv.config();
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
-app.get("/", () => {
+app.get("/", (req, res) => {
   console.log("Server pinged successfully");
   res.status(200).send("Server running...");
 });
