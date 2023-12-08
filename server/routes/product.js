@@ -1,5 +1,6 @@
 import Product from "../models/Product.js";
 import cloudinary from "../utils/cloudinary.js";
+import { redisClient } from "../index.js";
 
 import {
   verifyToken,
@@ -14,7 +15,7 @@ const router = express.Router();
 
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
   const { file, ...others } = req.body;
-  
+
   const newProduct = new Product(others);
   if (file !== "DEFAULT_IMAGE") {
     try {
@@ -24,7 +25,7 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
         function (error, result) {
           if (error) {
             console.log(error);
-          } 
+          }
         }
       );
     } catch (error) {
@@ -68,11 +69,10 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 
 //GET PRODUCTS
 router.get("/find/:queryString", async (req, res) => {
-
   const arr = req.params.queryString.split(";");
   try {
     // const product = await Product.findOne({ id: req.params.id });
-    const product = await Product.find({ id: {$in : arr} });
+    const product = await Product.find({ id: { $in: arr } });
     res.status(200).json(product);
   } catch (err) {
     res.status(500).json(err);
@@ -81,6 +81,16 @@ router.get("/find/:queryString", async (req, res) => {
 
 //GET ALL PRODUCTS
 router.get("/", async (req, res) => {
+  
+  const cached = await redisClient.get("products");
+
+  if(cached) {
+    console.log("Returned from cache");
+    // console.log(cached)
+    res.status(200).json(JSON.parse(cached));
+    return;
+  }
+
   const qNew = req.query.new;
   const qCategory = req.query.category;
   try {
@@ -98,7 +108,9 @@ router.get("/", async (req, res) => {
       products = await Product.find();
     }
     //console.log(products);
-
+    console.log("Not in cache");
+    // console.log(products);
+    await redisClient.set("products", JSON.stringify(products));
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err);
