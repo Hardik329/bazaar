@@ -11,15 +11,15 @@ const BASE_URL = "https://fair-cyan-gazelle-tie.cyclic.app/api";
 
 // const BASE_URL = "https://baazaar-backend.onrender.com/api";
 
-export const publicRequest = axios.create({
-  baseURL: BASE_URL,
-});
 
 export const userRequest = axios.create({
   baseURL: BASE_URL,
   headers: { token: `Bearer ${TOKEN}` },
 });
 
+export const publicRequest = axios.create({
+  baseURL: BASE_URL,
+});
 export const makeRequest = (token) => {
   const userRequest = axios.create({
     baseURL: BASE_URL,
