@@ -93,10 +93,10 @@ const Products = ({ category, filters, sort }) => {
       <div className="products-wrapper">
         {loading ? (
           <Shimmer />
-        ) : filteredProducts.length === 0 ? (
+        ) : !filteredProducts?.length  ? (
           <h1>No products found!</h1>
         ) : (
-          filteredProducts.map((item) => <Product item={item} key={item.id} />)
+          filteredProducts?.map((item) => <Product item={item} key={item.id} />)
         )}
       </div>
     </div>

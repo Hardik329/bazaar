@@ -44,7 +44,7 @@ const Slider = () => {
         <KeyboardArrowLeftOutlinedIcon onClick={() => handleClick("left")} />
       </div>
       <div className="slide-wrapper" ref={ref}>
-        {sliderItems.map((slide, i) => (
+        {sliderItems?.map((slide, i) => (
           <div className="slide" style={{ backgroundColor: slide.bg }} key={slide.id}>
             <div className="imgContainer">
               <img

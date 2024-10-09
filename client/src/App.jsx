@@ -27,7 +27,7 @@ function App() {
       updateCart({
         user: currentUser,
         cart: {
-          products: cart.products.map((product) => {
+          products: cart?.products?.map((product) => {
             return {
               id: product.id,
               quantity: product.quantity,

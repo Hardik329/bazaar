@@ -11,7 +11,7 @@ const Categories = () => {
         <h1>Shop by Category</h1>
       </Slide>
       <div className="categories-wrapper">
-        {categories.map((item) => (
+        {categories?.map((item) => (
           <CategoryItem item={item} key={item.id} />
         ))}
       </div>
