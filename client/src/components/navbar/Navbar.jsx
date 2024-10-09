@@ -40,8 +40,8 @@ const Navbar = () => {
         } else {
           console.log("cart: ", cart);
 
-          const queryString = cart?.products?
-            .map((product) => product.id)
+          const queryString = cart?.products
+            ?.map((product) => product.id)
             .join(";");
           const res = await publicRequest.get("/products/find/" + queryString);
           console.log(res);
