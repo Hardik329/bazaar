@@ -59,7 +59,7 @@ const Cart = () => {
       <div className="cart-wrapper">
         <h1 className="cart-title">YOUR BAG</h1>
         <div className="cart-top">
-          {cart.products.length > 0 && (
+          {cart?.products?.length > 0 && (
             <button className="cart-top-button" onClick={() => navigate("/")}>
               CONTINUE SHOPPING
             </button>
@@ -75,7 +75,7 @@ const Cart = () => {
               Your Wishlist({wishlist.products.length})
             </span>
           </div>
-          {cart.products.length > 0 && (
+          {cart?.products?.length > 0 && (
             <button className="cart-top-button" style={topButtonStyle}>
               CHECKOUT NOW
             </button>
@@ -84,7 +84,7 @@ const Cart = () => {
         <div className="cart-bottom">
           <Zoom duration={500} cascade>
             <div className="cart-info">
-              {cart.products.length === 0 && (
+              {!cart?.products?.length && (
                 <>
                   <div className="empty-container">
                     <div className="empty-text">Your bag is empty!</div>
@@ -156,7 +156,7 @@ const Cart = () => {
             </div>
           </Zoom>
           <Fade delay={500}>
-            {cart.products.length > 0 && (
+            {cart?.products?.length > 0 && (
               <div className="summary">
                 <h1 className="summary-title">ORDER SUMMARY</h1>
                 <div className="summary-item">

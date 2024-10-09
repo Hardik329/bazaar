@@ -1,6 +1,6 @@
 import Product from "../models/Product.js";
 import cloudinary from "../utils/cloudinary.js";
-import { redisClient } from "../index.js";
+// import { redisClient } from "../index.js";
 
 import {
   verifyToken,
@@ -82,7 +82,7 @@ router.get("/find/:queryString", async (req, res) => {
 //GET ALL PRODUCTS
 router.get("/", async (req, res) => {
   
-  const cached = await redisClient.get("products");
+  // const cached = await redisClient.get("products");
 
   if(cached) {
     console.log("Returned from cache");
@@ -108,9 +108,9 @@ router.get("/", async (req, res) => {
       products = await Product.find();
     }
     //console.log(products);
-    console.log("Not in cache");
+    // console.log("Not in cache");
     // console.log(products);
-    await redisClient.set("products", JSON.stringify(products));
+    // await redisClient.set("products", JSON.stringify(products));
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err);
