@@ -35,7 +35,7 @@ const Products = ({ category, filters, sort }) => {
     };
     getProducts();
   }, [category]);
-  const [filteredProducts, setFilteredProducts] = useState(null);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     category
