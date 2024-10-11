@@ -13,7 +13,7 @@ const cartSlice = createSlice({
 
       let exists = false;
 
-      state.products.forEach((product) => {
+      state.products?.forEach((product) => {
         if (
           product.id === newProduct.id &&
           product.size === newProduct.size &&
@@ -25,7 +25,7 @@ const cartSlice = createSlice({
       });
       if (!exists) {
         state.quantity++;
-        state.products.push(action.payload);
+        state.products?.push(action.payload);
       }
       state.total += action.payload.price * action.payload.quantity;
       return;
@@ -34,16 +34,16 @@ const cartSlice = createSlice({
     removeFromCart: (state, action) => {
       const newProduct = action.payload;
 
-      state.products.forEach((product) => {
+      state.products?.forEach((product) => {
         if (
           product.id === newProduct.id &&
           product.size === newProduct.size &&
           product.color === newProduct.color
         ) {
           if (product.quantity === 1) {
-            const index = state.products.indexOf(product);
+            const index = state.products?.indexOf(product);
             state.quantity--;
-            state.products.splice(index, 1);
+            state.products?.splice(index, 1);
           } else product.quantity--;
 
           state.total -= action.payload.price;

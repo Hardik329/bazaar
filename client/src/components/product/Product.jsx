@@ -19,7 +19,7 @@ const Product = ({ item }) => {
 
   const [imgLoading, setImgLoading] = useState(true);
 
-  wishlist.products.forEach((product) => {
+  wishlist.products?.forEach((product) => {
     if (product.id === item.id) isFav = true;
   });
 
