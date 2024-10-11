@@ -69,7 +69,7 @@ router.post("/resetPassword", async (req, res) => {
     await PasswordReset.create({ code: code, email: req.body.email });
     await forgotPass(
       req.body.email,
-      "http://localhost:3000/resetPassword/" + code
+      "https://baazaar.onrender.com/resetPassword/" + code
     );
     res.status(200).json(code);
   } catch (error) {
