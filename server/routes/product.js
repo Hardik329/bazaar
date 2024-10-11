@@ -84,12 +84,12 @@ router.get("/", async (req, res) => {
   
   // const cached = await redisClient.get("products");
 
-  if(cached) {
-    console.log("Returned from cache");
-    // console.log(cached)
-    res.status(200).json(JSON.parse(cached));
-    return;
-  }
+  // if(cached) {
+  //   console.log("Returned from cache");
+  //   // console.log(cached)
+  //   res.status(200).json(JSON.parse(cached));
+  //   return;
+  // }
 
   const qNew = req.query.new;
   const qCategory = req.query.category;
