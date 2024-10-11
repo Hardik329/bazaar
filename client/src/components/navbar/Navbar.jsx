@@ -43,11 +43,15 @@ const Navbar = () => {
           const queryString = cart?.products
             ?.map((product) => product.id)
             .join(";");
-          const res = await publicRequest.get("/products/find/" + queryString);
-          console.log(res);
+          let res;
+          let arr;
+          if (queryString) {
+            res = await publicRequest.get("/products/find/" + queryString);
+            console.log(res);
 
-          const arr = res.data;
-          console.log(arr);
+            arr = res.data;
+            console.log(arr);
+          } else arr = [];
 
           const products = arr?.map((product, i) => {
             const { id, image_id, desc, title, categories, price } = product;

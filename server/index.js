@@ -7,6 +7,7 @@ import authRoute from "./routes/auth.js";
 import userRoute from "./routes/user.js";
 import productRoute from "./routes/product.js";
 import cartRoute from "./routes/cart.js";
+import { verifyTokenAndAuthorization } from "./routes/verifyToken.js";
 
 // import { createClient } from "redis";
 

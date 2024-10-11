@@ -2,6 +2,9 @@ import express from "express";
 import User from "../models/User.js";
 import CryptoJS from "crypto-js";
 import jwt from "jsonwebtoken";
+import { uuid } from "uuidv4";
+import PasswordReset from "../models/PasswordReset.js";
+import { forgotPass } from "../utils/mail.js";
 
 const router = express.Router();
 
@@ -57,6 +60,33 @@ router.post("/login", async (req, res) => {
     res.status(200).json({ ...others, accessToken });
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+router.post("/resetPassword", async (req, res) => {
+  try {
+    const code = uuid();
+    await PasswordReset.create({ code: code, email: req.body.email });
+    await forgotPass(
+      req.body.email,
+      "http://localhost:3000/resetPassword/" + code
+    );
+    res.status(200).json(code);
+  } catch (error) {
+    console.log("err: ", error);
+    res.status(400).json(error);
+  }
+});
+router.post("/verifyCode", async (req, res) => {
+  try {
+    if(!req.body.code) return res.status(400).json(new Error("Invalid link")) 
+    const doc = await PasswordReset.findOne({ code: req.body.code });
+    if(!doc) return res.status(400).json(new Error("Invalid link"))
+    
+    res.status(200).json(doc.email);
+  } catch (error) {
+    console.log("err: ", error);
+    res.status(400).json(error);
   }
 });
 

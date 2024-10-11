@@ -18,7 +18,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (currentUser) navigate('/');
+    if (currentUser) navigate("/");
   }, [currentUser]);
 
   return (
@@ -47,7 +47,10 @@ const Login = () => {
           {error && (
             <span className="login-error">Something went wrong...</span>
           )}
-          <Link style={{ color: "black", textDecoration: "none" }}>
+          <Link
+            to="/forgotPassword"
+            style={{ color: "black", textDecoration: "none" }}
+          >
             <span className="login-link">FORGOT PASSWORD?</span>
           </Link>
           <Link

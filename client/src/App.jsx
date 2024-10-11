@@ -2,6 +2,8 @@ import "./App.css";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import Product from "./pages/Product";
 import ProductList from "./pages/ProductList";
 import Register from "./pages/Register";
@@ -59,6 +61,15 @@ function App() {
             path="/login"
             element={currentUser ? <Navigate to="/" /> : <Login />}
           />
+          <Route
+            path="/resetPassword/:code"
+            element={currentUser ? <Navigate to="/" /> : <ResetPassword />}
+          />
+          <Route
+            path="/forgotPassword"
+            element={currentUser ? <Navigate to="/" /> : <ForgotPassword />}
+          />
+
           <Route
             path="/register"
             element={currentUser ? <Navigate to="/" /> : <Register />}

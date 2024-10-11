@@ -69,7 +69,9 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 
 //GET PRODUCTS
 router.get("/find/:queryString", async (req, res) => {
+  console.log("here")
   const arr = req.params.queryString.split(";");
+  console.log(arr);
   try {
     // const product = await Product.findOne({ id: req.params.id });
     const product = await Product.find({ id: { $in: arr } });
@@ -81,7 +83,6 @@ router.get("/find/:queryString", async (req, res) => {
 
 //GET ALL PRODUCTS
 router.get("/", async (req, res) => {
-  
   // const cached = await redisClient.get("products");
 
   // if(cached) {
